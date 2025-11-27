@@ -1,5 +1,4 @@
 .power-area {
-    /* border: 1px solid #fff; */
     display: flex;
     justify-content: end;
     padding-right: 5.8rem;
@@ -42,7 +41,6 @@
 
 .execution-mode-label {
     font-weight: 500;
-    /* font-size: 1.3rem; */
     font-size: 1.1rem;
     color: #00ff9f;
     text-shadow: 0 0 2px #00ff9f, 0 0 20px rgba(0, 255, 159, 0.6);
@@ -67,26 +65,19 @@
 .section-header {
     display: flex;
     justify-content: space-between;
-    /* align-items: center; */
     align-items: flex-start;
     padding: .8rem 0;
     margin: 1.2rem 0 1rem 0;
     gap: 1rem;
-    /* border: 1px solid #fff; */
 }
 
 .map-panel,
 .camera-panel {
-    /* height: inherit; */
     flex: 1 1 0;
-    /* display: flex;
-    flex-direction: column; */
     min-width: 0;
 }
 
 .map-box {
-    /* border: 1px solid #fff; */
-    /* padding: 2rem; */
     margin-bottom: 1.2rem;
     height: 490px;
 }
@@ -96,9 +87,6 @@
     width: 100%;
     height: 100%;
     flex: 1;
-    /* aspect-ratio: 5 / 4; */
-    /* aspect-ratio: 4 / 3; */
-    /* aspect-ratio: 16 / 9; */
     overflow: hidden;
     padding: 1rem;
 }
@@ -106,10 +94,7 @@
 .camera-card {
     width: 100%;
     height: 100%;
-    /* aspect-ratio: 5 / 4; */
-    /* aspect-ratio: 16 / 9; */
     flex: 1;
-    /* overflow: hidden; */
     padding: 1rem;
 }
 
@@ -117,7 +102,6 @@
     display: flex;
     justify-content: end;
     padding-bottom: 1rem;
-    /* border: 1px solid #fff; */
 }
 
 /* 導航目標按鈕靠右、特效 */
@@ -155,39 +139,4 @@
     gap: 1rem;
     padding: 1rem;
     margin-top: 0.5rem;
-    /* border: 1px solid #fff; */
 }
-
-/* .teleop-area {
-    height: 100%;
-    width: 100%;
-    max-width: 300px;
-} */
-
-/* .safetyStop-area {
-    flex: 0.5;
-    padding: 0 1.2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 200px;
-} */
-
-/* .emergency-area {
-    flex: 0.5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 200px;
-} */
-
-
-/* 手機版時地圖＋鏡頭變成上下排 */
-/* @media (max-width: 767px) {
-
-    .map-card,
-    .camera-card {
-        aspect-ratio: auto;
-        height: 300px;
-    }
-} */

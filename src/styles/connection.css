@@ -14,9 +14,6 @@
 
 /* 連線中 (尚未確定) 霓虹黃 */
 .connection-alert.connecting {
-    /* background-color: #f3e600;
-    border-color: #f3e600;
-    box-shadow: 0 0 15px rgba(243, 230, 0, 0.9); */
     background-color: #dcd103;
     border-color: #e2d701;
     box-shadow: 0 0 15px rgba(243, 230, 0, 0.9);
@@ -25,7 +22,6 @@
 /* 已斷線 */
 .connection-alert.disconnected {
     background-color: #ff00cc;
-    /* 霓虹粉紅 */
     border-color: #ff00cc;
     box-shadow: 0 0 15px rgba(255, 0, 204, 0.9);
 }
@@ -33,7 +29,6 @@
 /* 已連線 */
 .connection-alert.connected {
     background-color: #00ff9f;
-    /* 霓虹綠 */
     border-color: #00ff9f;
     box-shadow: 0 0 15px rgba(0, 255, 159, 0.9);
 }

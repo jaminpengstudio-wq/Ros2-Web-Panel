@@ -9,7 +9,6 @@
     justify-content: flex-end;
     align-items: flex-start;
     gap: 1.2rem;
-    /* border: 1px solid #fff; */
 }
 
 /* 按鈕群組 */
@@ -22,7 +21,6 @@
 
 /* ROS 控制按鈕基本樣式 */
 .ros-btn {
-    /* color: #8a7fff; */
     color: #00ff9f;
     transition: all 0.3s ease;
 }
@@ -35,23 +33,18 @@
 /* 各種顏色區分 */
 .ros-btn-slam {
     cursor: pointer;
-    /* background: linear-gradient(90deg, #1e90ff, #00c3ff); */
-    /* background: linear-gradient(90deg, #5900ffff, rgb(144, 0, 255)); */
 }
 
 .ros-btn-nav {
     cursor: pointer;
-    /* background: linear-gradient(90deg, #00b37d, #00ffcc); */
 }
 
 .ros-btn-stop {
     cursor: pointer;
-    /* background: linear-gradient(90deg, #ff4b2b, #ff416c); */
 }
 
 .ros-btn-save {
     cursor: pointer;
-    /* background: linear-gradient(90deg, #ff8a2b, #ffd041); */
 }
 
 .ros-btn.disabled {
@@ -112,13 +105,6 @@
 
 
 /* ====== 儲存地圖群組 ====== */
-/* .ros-save-group {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 1.2rem;
-} */
-
 /* 儲存地圖彈窗 */
 .save-popup-overlay {
     position: fixed;

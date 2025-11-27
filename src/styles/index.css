@@ -21,7 +21,6 @@ code {
 }
 
 .main-font {
-  /* color: #a3bffa; */
   color: #00ff9f;
   font-weight: 600;
   font-size: 1.4rem;
@@ -33,12 +32,6 @@ code {
   border-radius: 0.5rem;
   box-shadow: 0 0 8px rgba(68, 0, 255, 0.7);
   background: #1b1f2b;
-
-  /* padding: 0.8rem;
-  border: 1px solid #2e344e;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 8px rgba(0, 140, 255, 0.2);
-  background: #1b1f2b; */
 }
 
 .second-border {

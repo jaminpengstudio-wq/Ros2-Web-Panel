@@ -2,13 +2,7 @@
     width: 100%;
     display: flex;
     justify-content: space-around;
-    /* flex-wrap: wrap; */
-    /* border: 1px solid #fff; */
 }
-
-/* .pos-state-block {
-    min-width: 200px;
-} */
 
 .global-pos-state-msg,
 .realtime-pos-state-msg {
@@ -26,17 +20,5 @@
 }
 
 .vel-state-block {
-    /* flex: 1; */
     min-width: 200px;
 }
-
-/* .imu-state-block {
-    flex: 0.5;
-} */
-
-
-/* @media (max-width: 767px) {
-    .robot-state-wrapper {
-        flex-direction: column;
-    }
-} */
