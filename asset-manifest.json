@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/Ros2-Web-Panel/static/css/main.9851f9b7.css",
-    "main.js": "/Ros2-Web-Panel/static/js/main.c36a640d.js",
-    "static/js/206.ed290d24.chunk.js": "/Ros2-Web-Panel/static/js/206.ed290d24.chunk.js",
-    "index.html": "/Ros2-Web-Panel/index.html"
+    "main.css": "/static/css/main.9851f9b7.css",
+    "main.js": "/static/js/main.6008b785.js",
+    "static/js/206.ed290d24.chunk.js": "/static/js/206.ed290d24.chunk.js",
+    "index.html": "/index.html"
   },
   "entrypoints": [
     "static/css/main.9851f9b7.css",
-    "static/js/main.c36a640d.js"
+    "static/js/main.6008b785.js"
   ]
 }
