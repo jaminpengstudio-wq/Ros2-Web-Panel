@@ -1,0 +1,84 @@
+.imu-indicator-wrapper {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imu-status-block {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #5900ffff;
+    box-shadow: 0 0 8px rgba(68, 0, 255, 0.7);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.imu-status {
+    color: #ff00cc;
+    text-shadow: 0 0 8px #ff00cc;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.imu-indicator {
+    /* padding: 0.5rem; */
+    position: relative;
+    border: 1px solid #5900ffff;
+    box-shadow: 0 0 8px rgba(68, 0, 255, 0.7);
+    border-radius: 0.5rem;
+
+    /* width: 300px; */
+    width: 240px;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* align-items: center; */
+    background: #1b1f2b;
+}
+
+.imu-alert {
+    border-color: #f21b1b;
+    box-shadow: 0 0 12px #f21b1b;
+    /* border-color: #ff6600;
+    box-shadow: 0 0 12px #ff6600; */
+}
+
+.attitude {
+    /* width: 280px;
+    height: 280px; */
+    width: 220px;
+    height: 220px;
+    margin: 0 auto;
+    position: relative;
+    /* overflow: hidden; */
+    overflow: visible;
+}
+
+.attitude-svg {
+    width: 100%;
+    height: 100%;
+}
+
+.values {
+    /* margin-top: 8px; */
+    font-size: 0.7rem;
+    display: flex;
+    /* justify-content: space-between; */
+    justify-content: space-around;
+    color: #ddd;
+}
+
+/* 警示顏色 */
+.imu-alert .values span {
+    color: #ff6b6b;
+}

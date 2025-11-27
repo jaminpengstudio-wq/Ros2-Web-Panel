@@ -1,0 +1,42 @@
+.robot-state-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    /* flex-wrap: wrap; */
+    /* border: 1px solid #fff; */
+}
+
+/* .pos-state-block {
+    min-width: 200px;
+} */
+
+.global-pos-state-msg,
+.realtime-pos-state-msg {
+    display: flex;
+    flex-direction: column;
+    color: #adb2c0;
+    font-size: 1.2rem;
+    font-weight: 450;
+}
+
+.global-pos-state-msg {
+    border-bottom: 1px solid #666;
+    padding-bottom: 0.2rem;
+    margin-bottom: 0.4rem;
+}
+
+.vel-state-block {
+    /* flex: 1; */
+    min-width: 200px;
+}
+
+/* .imu-state-block {
+    flex: 0.5;
+} */
+
+
+/* @media (max-width: 767px) {
+    .robot-state-wrapper {
+        flex-direction: column;
+    }
+} */

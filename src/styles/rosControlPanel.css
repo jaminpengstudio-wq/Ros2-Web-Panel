@@ -1,0 +1,188 @@
+/* ROS最外層：控制群組 */
+.ros-controls-bar {
+    color: #fff;
+    font-size: 0.94rem;
+    font-weight: 600;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 1.2rem;
+    /* border: 1px solid #fff; */
+}
+
+/* 按鈕群組 */
+.ros-controls-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+}
+
+/* ROS 控制按鈕基本樣式 */
+.ros-btn {
+    /* color: #8a7fff; */
+    color: #00ff9f;
+    transition: all 0.3s ease;
+}
+
+.ros-btn:hover {
+    color: rgb(106, 27, 255);
+    text-shadow: 0 0 1px rgb(106, 27, 255);
+}
+
+/* 各種顏色區分 */
+.ros-btn-slam {
+    cursor: pointer;
+    /* background: linear-gradient(90deg, #1e90ff, #00c3ff); */
+    /* background: linear-gradient(90deg, #5900ffff, rgb(144, 0, 255)); */
+}
+
+.ros-btn-nav {
+    cursor: pointer;
+    /* background: linear-gradient(90deg, #00b37d, #00ffcc); */
+}
+
+.ros-btn-stop {
+    cursor: pointer;
+    /* background: linear-gradient(90deg, #ff4b2b, #ff416c); */
+}
+
+.ros-btn-save {
+    cursor: pointer;
+    /* background: linear-gradient(90deg, #ff8a2b, #ffd041); */
+}
+
+.ros-btn.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* ====== 導航下拉選單外層 ====== */
+.nav-dropdown-wrapper {
+    position: relative;
+}
+
+/* 下拉選單容器 */
+.nav-dropdown {
+    position: absolute;
+    top: 30px;
+    left: 0;
+
+    width: 150px;
+    padding: 0.2rem 0.5rem;
+
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 0.5rem;
+
+    z-index: 10;
+}
+
+/* 禁止 hover 光跑進 dropdown */
+.nav-dropdown * {
+    text-shadow: none !important;
+}
+
+/* 下拉選單的每一列 */
+.nav-item {
+    padding: 0.2rem 0rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.nav-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #00ff9f;
+}
+
+/* 無法點擊的項目 */
+.nav-item.disabled {
+    cursor: default;
+    color: #888;
+    background: transparent;
+}
+
+.nav-item.disabled:hover {
+    background: transparent !important;
+    color: #888 !important;
+}
+
+
+/* ====== 儲存地圖群組 ====== */
+/* .ros-save-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1.2rem;
+} */
+
+/* 儲存地圖彈窗 */
+.save-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999;
+}
+
+/* 彈窗本體 */
+.save-popup {
+    background: #222;
+    border: 1px solid #444;
+    padding: 1.5rem;
+    width: 300px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.save-popup-title {
+    font-size: 1.2rem;
+    padding-bottom: 1rem;
+    color: #00ff9f;
+}
+
+/* 按鈕區 */
+.popup-buttons {
+    margin-top: 1.4rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.popup-btn {
+    width: 45%;
+    padding: 0.4rem;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.popup-btn.cancel {
+    background: #444;
+    color: #ddd;
+}
+
+.popup-btn.cancel:hover {
+    background: #666;
+}
+
+.popup-btn.confirm {
+    background: #00ff9f;
+    color: #1b1f2b;
+}
+
+.popup-btn.confirm:hover {
+    background: #20f7ac;
+}

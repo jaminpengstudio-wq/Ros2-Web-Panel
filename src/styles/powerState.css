@@ -1,0 +1,60 @@
+.power-status-wrapper.horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /* 左右間距 */
+    gap: 10px;
+}
+
+.power-status-block.horizontal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background: #111; */
+    border: 1px solid #666;
+    border-radius: 0.3rem;
+    width: auto;
+    /* padding: 8px; */
+    /* height: 60px; */
+
+}
+
+.battery-container-horizontal {
+    position: relative;
+    width: 60px;
+    height: 20px;
+    border: 1px solid #999;
+    border-radius: 0.3rem;
+    background-color: #0e1016;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.15rem;
+}
+
+/* 填滿區域：用寬度表示電量 */
+.battery-fill {
+    height: 100%;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    border-right: 0px solid #111111;
+}
+
+.battery-cap-horizontal {
+    position: absolute;
+    right: -6px;
+    top: 4px;
+    width: 4px;
+    height: 12px;
+    background: #999;
+    border-radius: 0rem 0.15rem 0.15rem 0rem;
+}
+
+.power-status-text {
+    font-size: 1rem;
+    color: #00ff9f;
+    text-shadow: 0 0 6px #00ff9f;
+}
