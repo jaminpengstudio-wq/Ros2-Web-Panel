@@ -73,6 +73,7 @@ export default class KvsWebrtcClient {
                 })
             );
 
+            // 方法一
             // const iceServers = [
             //     { urls: `stun:stun.kinesisvideo.${this.region}.amazonaws.com:443` },
             //     ...iceResp.IceServerList.map((s) => ({
@@ -81,6 +82,7 @@ export default class KvsWebrtcClient {
             //         credential: s.Password,
             //     })),
             // ];
+            // 方法二
             const iceServers = [
                 {
                     urls: `stun:stun.kinesisvideo.${this.region}.amazonaws.com:443`,
@@ -98,9 +100,9 @@ export default class KvsWebrtcClient {
             /* 5️⃣ PeerConnection */
             this.pc = new RTCPeerConnection({ iceServers });
 
-            this.pc.oniceconnectionstatechange = () => {
-                console.log("ICE state:", this.pc.iceConnectionState);
-            };
+            // this.pc.oniceconnectionstatechange = () => {
+            //     console.log("ICE state:", this.pc.iceConnectionState);
+            // };
 
             this.pc.ontrack = (event) => {
                 this.onTrack?.(event.streams[0]);

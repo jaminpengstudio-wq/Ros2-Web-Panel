@@ -4,7 +4,6 @@ const API_BASE = "https://ros_bot1_server.jampenglab.tw/bot1/api/v1";
 export const getAwsKvsCredentials = async () => {
     const res = await fetch(`${API_BASE}/aws/kvs/credentials`, {
         method: "GET",
-        credentials: "include",
     });
 
     if (!res.ok) {
