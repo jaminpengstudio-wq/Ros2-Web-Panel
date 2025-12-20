@@ -85,17 +85,22 @@ export default class KvsWebrtcClient {
                 {
                     urls: `stun:stun.kinesisvideo.${this.region}.amazonaws.com:443`,
                 },
-                ...iceResp.IceServerList.flatMap((s) => ([
-                    {
-                        urls: s.Uris.filter(u => u.startsWith("turns:")), // TCP/TLS only
-                        username: s.Username,
-                        credential: s.Password,
-                    }
-                ])),
+                ...iceResp.IceServerList
+                    .map(server => ({
+                        urls: server.Uris.filter(uri => uri.startsWith("turns:")),
+                        username: server.Username,
+                        credential: server.Password,
+                    }))
+                    .filter(s => s.urls.length > 0),
             ];
+
 
             /* 5️⃣ PeerConnection */
             this.pc = new RTCPeerConnection({ iceServers });
+
+            this.pc.oniceconnectionstatechange = () => {
+                console.log("ICE state:", this.pc.iceConnectionState);
+            };
 
             this.pc.ontrack = (event) => {
                 this.onTrack?.(event.streams[0]);
