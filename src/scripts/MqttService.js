@@ -13,7 +13,7 @@ class MqttService {
         if (this.connected || this.connecting) return;
         this.connecting = true;
 
-        const url = `${Config.MQTT_PROTOCOL}://${Config.MQTT_SERVER_IP}:${Config.MQTT_WEBSOCKET_PORT}`;
+        const url = `${Config.MQTT_PROTOCOL}://${Config.MQTT_SERVER_IP}`;
         this.client = mqtt.connect(url, {
             username: Config.MQTT_USERNAME,
             password: Config.MQTT_PASSWORD,

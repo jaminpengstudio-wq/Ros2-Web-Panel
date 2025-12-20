@@ -1,15 +1,14 @@
 const Config = {
-    MQTT_SERVER_IP: process.env.REACT_APP_MQTT_SERVER_IP,
-    MQTT_WEBSOCKET_PORT: process.env.REACT_APP_MQTT_WEBSOCKET_PORT,
-    MQTT_PROTOCOL: process.env.REACT_APP_MQTT_PROTOCOL
-        || (window.location.protocol === "https:" ? "wss" : "ws"),
+    MQTT_PROTOCOL: "wss",
+    MQTT_SERVER_IP: "mqtt_bot1_bridge.jampenglab.tw",
 
-    MQTT_USERNAME: process.env.REACT_APP_MQTT_USERNAME,
-    MQTT_PASSWORD: process.env.REACT_APP_MQTT_PASSWORD,
+    MQTT_USERNAME: "web_client",
+    MQTT_PASSWORD: "test@1234",
     MQTT_CLIENT_ID: "web_to_mqtt",
-    RECONNECTION_TIMER: 3000,     // 重連間隔 (ms) 
-    CONNECT_TIMEOUT_MS: 4000,     // 連線超時 - 避免失敗時太快 retry
-    KEEPALIVE_SECONDS: 60,        // 心跳間隔 (秒)
+
+    RECONNECTION_TIMER: 3000,
+    CONNECT_TIMEOUT_MS: 4000,
+    KEEPALIVE_SECONDS: 60,
 
     // MQTT to Frontend
     ODOM_TOPIC: "robot1/odom",
