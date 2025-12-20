@@ -73,13 +73,25 @@ export default class KvsWebrtcClient {
                 })
             );
 
+            // const iceServers = [
+            //     { urls: `stun:stun.kinesisvideo.${this.region}.amazonaws.com:443` },
+            //     ...iceResp.IceServerList.map((s) => ({
+            //         urls: s.Uris,
+            //         username: s.Username,
+            //         credential: s.Password,
+            //     })),
+            // ];
             const iceServers = [
-                { urls: `stun:stun.kinesisvideo.${this.region}.amazonaws.com:443` },
-                ...iceResp.IceServerList.map((s) => ({
-                    urls: s.Uris,
-                    username: s.Username,
-                    credential: s.Password,
-                })),
+                {
+                    urls: `stun:stun.kinesisvideo.${this.region}.amazonaws.com:443`,
+                },
+                ...iceResp.IceServerList.flatMap((s) => ([
+                    {
+                        urls: s.Uris.filter(u => u.startsWith("turns:")), // TCP/TLS only
+                        username: s.Username,
+                        credential: s.Password,
+                    }
+                ])),
             ];
 
             /* 5️⃣ PeerConnection */
