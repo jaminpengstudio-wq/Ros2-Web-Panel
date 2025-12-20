@@ -1,8 +1,6 @@
 import { Component } from "react";
-import ROSLIB from "roslib";
-import rosService from "../scripts/RosService";
+import mqttService from "../scripts/MqttService";
 import Config from "../scripts/config";
-
 
 class SafetyStop extends Component {
     constructor(props) {
@@ -12,33 +10,34 @@ class SafetyStop extends Component {
             stopped: false,  // 是否已經觸發安全停止
         };
         this.size = props.size || 140;
+
+        this.safetyStopTopic = Config.SAFETY_STOP_TOPIC;
+        this.cmdVelTopic = Config.CMD_VEL_TOPIC;
     }
 
     triggerStop = () => {
-        const ros = rosService.getRos();
-        const safetyStop = new ROSLIB.Topic({
-            ros,
-            name: '/safety_stop',
-            messageType: 'std_msgs/msg/Bool',
-        });
-        safetyStop.publish(new ROSLIB.Message({ data: true }));
-        // 發零速度...
+        // 發送安全停止訊號
+        mqttService.publish(this.safetyStopTopic, { data: true });
+
+        // 發送零速度訊號
+        const stopMsg = {
+            linear: { x: 0.0, y: 0.0, z: 0.0 },
+            angular: { x: 0.0, y: 0.0, z: 0.0 },
+        };
+        mqttService.publish(this.cmdVelTopic, stopMsg);
+
         this.setState({ stopped: true });
     }
 
     triggerResume = () => {
-        const ros = rosService.getRos();
-        const safetyStop = new ROSLIB.Topic({
-            ros,
-            name: '/safety_stop',
-            messageType: 'std_msgs/msg/Bool',
-        });
-        safetyStop.publish(new ROSLIB.Message({ data: false }));
+        mqttService.publish(this.safetyStopTopic, { data: false });
         this.setState({ stopped: false });
     }
 
     handlePress = () => {
-        if (!rosService.isConnected()) return;
+        // 檢查 MQTT 是否連線
+        if (!mqttService.client || !mqttService.client.connected) return;
+
         this.setState({ pressed: true });
 
         if (!this.state.stopped) {
@@ -47,23 +46,7 @@ class SafetyStop extends Component {
             this.triggerResume();
         }
 
-        // 發送零速度
-        const ros = rosService.getRos();
-        const cmdVel = new ROSLIB.Topic({
-            ros,
-            name: Config.CMD_VEL_TOPIC,
-            messageType: "geometry_msgs/msg/Twist",
-        });
-
-        const stopMsg = new ROSLIB.Message({
-            linear: { x: 0.0, y: 0.0, z: 0.0 },
-            angular: { x: 0.0, y: 0.0, z: 0.0 },
-        });
-        cmdVel.publish(stopMsg);
-
-        // console.log("🛑 Safety stop published");
-
-        // 150ms 回彈
+        // 150ms 回彈動畫
         setTimeout(() => this.setState({ pressed: false }), 150);
     };
 

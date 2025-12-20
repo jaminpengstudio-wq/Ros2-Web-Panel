@@ -9,6 +9,9 @@
     cursor: pointer;
     user-select: none;
     transition: all 0.15s ease;
+
+    /* 按鈕縮小 75% */
+    transform: scale(0.75);
 }
 
 .emergency-btn:active,

@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 
-
 const Joystick = ({ size = 120, onMove, onStop }) => {
     const baseRef = useRef(null);
     const [stickPos, setStickPos] = useState({ x: 0, y: 0 });
@@ -84,8 +83,8 @@ const Joystick = ({ size = 120, onMove, onStop }) => {
                 position: "relative",
                 touchAction: "none",
                 boxShadow: `
-                    inset 6px 6px 12px rgba(16, 0, 47, 0.93),
-                    inset -6px -6px 12px rgba(89, 0, 255, 0.5),
+                    inset 6px 5px 12px rgba(16, 0, 47, 0.93),
+                    inset -6px -5px 11px rgba(89, 0, 255, 0.5),
                     0 0 10px rgba(89, 0, 255, 0.6)
                     `,
             }}
@@ -100,7 +99,7 @@ const Joystick = ({ size = 120, onMove, onStop }) => {
                     top: radius - stickRadius + stickPos.y,
                     transition: isDragging ? "none" : "0.2s ease-out",
                     background: "radial-gradient(circle at 30% 30%, #00ffb0, #009f70 90%)",
-                    boxShadow: "0 4px 13px rgba(0,255,159,0.8), inset 0 2px 6px rgba(255,255,255,0.4)",
+                    boxShadow: "0 4px 11px rgba(0,255,159,0.8), inset 0 2px 6px rgba(255,255,255,0.4)",
                 }}
             ></div>
         </div>

@@ -1,6 +1,5 @@
 import { Component } from "react";
 
-
 class Toast extends Component {
     state = { visible: true };
 

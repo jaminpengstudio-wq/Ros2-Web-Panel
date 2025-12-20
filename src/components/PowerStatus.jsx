@@ -1,27 +1,24 @@
 import { Component } from "react";
-import ROSLIB from "roslib";
-import rosService from "../scripts/RosService";
-
+import mqttService from "../scripts/MqttService";
 
 // ========================
-// 使用真實電力數據請在外層 Panel.jsx 元件裡調整 < PowerStatus simulate = { false} />
+// 使用真實電力數據請在外層 Panel.jsx 元件裡調整 < PowerStatus simulate = {false} />
 // ========================
 class PowerStatus extends Component {
     constructor(props) {
         super(props);
         this.state = {
             connected: false,
-            percentage: 100,   // 模擬電量（0~100）
+            percentage: 50,   // 模擬電量（0~100）
             blink: false,
             receivedReal: false,
         };
 
         // 使用模擬模式參數（從 props 傳入）
         this.simulate = props.simulate === true;
-        // console.log("PowerStatus simulate mode:", this.simulate, typeof (this.simulate));
 
         // 調整設定（
-        this.simulateIntervalMs = 5000;  // (單位：毫秒）每 5 秒掉 1%
+        this.simulateIntervalMs = 3000;  // (單位：毫秒）每 3 秒掉 1%
         this.blinkIntervalMs = 800;      // 閃爍速度 (越小越快) 最快閃爍設定:300 差不多
         this.blinkThreshold = 10;        // 低於多少%開始閃爍
         this.barBorderColor = "#999";  // 電力格 border 顏色
@@ -37,27 +34,23 @@ class PowerStatus extends Component {
     componentDidMount() {
         this._firstTickSkipped = false;
 
+        // 每隔 simulateIntervalMs 判斷 MQTT 是否已連線，並更新模擬電量
         this.interval = setInterval(() => {
-            const isConn = rosService.isConnected();
-            if (isConn && !this.state.connected) {
-                this.setState({ connected: true }, () => {
-                    this.initSubscriber();
+            const isConn = mqttService.connected;
+            if (isConn !== this.state.connected) {
+                this.setState({ connected: isConn }, () => {
+                    if (isConn && !this.simulate) {
+                        this.initSubscriber();
+                    }
                 });
-            } else if (!isConn && this.state.connected) {
-                this.setState({ connected: false });
-                if (this.topic) {
-                    this.topic.unsubscribe();
-                    this.topic = null;
-                }
             }
 
             // 模擬耗電：使用模擬模式時
             if (this.simulate && isConn) {
                 if (!this._firstTickSkipped) {
                     this._firstTickSkipped = true;
-                    return;  // 第一次不扣電，讓畫面先顯示初始值 10%
+                    return; // 第一次不扣電
                 }
-
                 this.setState((prev) => ({
                     percentage: Math.max(prev.percentage - 1, 0),
                 }));
@@ -84,21 +77,13 @@ class PowerStatus extends Component {
         }
     }
 
+    // 初始化 MQTT 訂閱真實電量
     initSubscriber() {
-        const ros = rosService.getRos();
-        if (!ros) {
-            console.warn("⚠️ ROS not ready yet for PowerStatus");
-            return;
-        }
+        // 避免重複訂閱
+        if (this.topic) return;
 
-        this.topic = new ROSLIB.Topic({
-            ros: ros,
-            name: "/battery_state",
-            messageType: "sensor_msgs/BatteryState"
-        });
-
-        this.topic.subscribe((msg) => {
-            // 若不是模擬模式，才用真實資料更新電量
+        // 訂閱 MQTT topic
+        this.topic = mqttService.subscribe("robot1/battery_state", (msg) => {
             if (!this.simulate) {
                 this.setState({
                     percentage: msg.percentage * 100,
@@ -106,8 +91,6 @@ class PowerStatus extends Component {
                 });
             }
         });
-
-        console.log("✅ PowerStatus subscribed to battery state topic");
     }
 
     getBatteryColor(percentage) {
@@ -140,25 +123,13 @@ class PowerStatus extends Component {
         const { connected, percentage, receivedReal } = this.state;
 
         let displayPercentage;
-        if (!this.simulate) {
-            // 真實模式
-            if (!connected || !receivedReal) {
-                displayPercentage = 0;
-            } else {
-                displayPercentage = percentage;
-            }
+        if (this.simulate) {
+            displayPercentage = connected ? percentage : 0;
         } else {
-            // 模擬模式
-            if (!connected) {
-                displayPercentage = 0;
-            } else {
-                displayPercentage = percentage;
-            }
+            displayPercentage = connected && receivedReal ? percentage : 0;
         }
 
-
         return (
-            // 電池橫向排列
             <div className="power-status-wrapper horizontal">
                 <div className="power-status-text">{displayPercentage.toFixed(0)}%</div>
                 <div className="power-status-block horizontal">

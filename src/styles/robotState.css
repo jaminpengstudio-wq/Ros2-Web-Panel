@@ -1,24 +1,59 @@
 .robot-state-wrapper {
     width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 0.7rem;
+
+    transform: scale(0.97);
 }
 
-.global-pos-state-msg,
+/* .imu-state-block, */
+.pos-state-block,
+.vel-state-block {
+    min-width: 0;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(3px);
+
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
 .realtime-pos-state-msg {
     display: flex;
     flex-direction: column;
+    gap: 0.16rem;
+
     color: #adb2c0;
-    font-size: 1.2rem;
     font-weight: 450;
+    font-size: 0.82rem;
 }
 
-.global-pos-state-msg {
-    border-bottom: 1px solid #666;
-    padding-bottom: 0.2rem;
-    margin-bottom: 0.4rem;
+/* 速度計（Gauge）容器間距縮小 */
+.vel-state-block>div {
+    display: flex;
+    justify-content: space-between;
 }
 
-.vel-state-block {
-    min-width: 200px;
+/* 速度計最小化 */
+.vel-state-block canvas,
+.vel-state-block svg {
+    transform: scale(0.98);
+    transform-origin: top center;
+}
+
+/* IMU 區域 */
+.imu-state-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* IMU 儀表縮小 */
+.imu-state-block .imu-indicator {
+    transform: scale(0.75);
+    transform-origin: center;
 }

@@ -1,7 +1,5 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
-import Connection from "./Connection";
-
 
 class Header extends Component {
     constructor(props) {
@@ -35,9 +33,6 @@ class Header extends Component {
                     <span className="brand" onClick={this.toggleSidebar}>
                         ROS II PANEL
                     </span>
-                    <div>
-                        <Connection />
-                    </div>
                 </div>
 
                 {isOpen && (

@@ -1,7 +1,6 @@
 import { Component } from "react";
 import Toast from "./Toast";
 
-
 class ToastContainer extends Component {
     render() {
         const { toasts = [] } = this.props;

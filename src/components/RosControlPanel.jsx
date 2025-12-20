@@ -2,7 +2,6 @@ import { Component } from "react";
 import { Form } from "react-bootstrap";
 import rosApi from "../scripts/rosApi";
 
-
 class RosControlPanel extends Component {
     constructor(props) {
         super(props);
@@ -21,13 +20,13 @@ class RosControlPanel extends Component {
         try {
             const maps = await rosApi.getMaps();
             this.setState({ maps, mapLoaded: true });
-            // console.log("📌 已取得地圖列表:", maps);
 
         } catch (err) {
             // console.error("❌ 取得地圖列表失敗:", err);
             this.setState({ maps: [], mapLoaded: true }); // 即使失敗也標記已載入
 
-            this.props.addToast("尚未連線至機器", "warning");
+            // this.props.addToast(err.message || err.toString(), "error");
+            // this.props.addToast("尚未連線至機器", "warning");
         }
     }
 
@@ -71,6 +70,7 @@ class RosControlPanel extends Component {
 
     // 停止ROS運作
     handleStopMode = async () => {
+        // 關閉右邊 Sidebar
         if (this.props.onCloseSidebar) this.props.onCloseSidebar();
 
         // 沒有成功連線到後端
@@ -87,7 +87,6 @@ class RosControlPanel extends Component {
             if (this.props.onModeChange) this.props.onModeChange("idle");
 
             this.props.setSlamming(false);
-
         } catch (err) {
             this.props.addToast(err.message || err.toString(), "error");
         }
@@ -108,6 +107,7 @@ class RosControlPanel extends Component {
             const msg = await rosApi.saveMap(folderName);
             this.props.addToast(msg, "success");
 
+            // 關閉右邊 Sidebar
             if (this.props.onCloseSidebar) this.props.onCloseSidebar();
         } catch (err) {
             this.props.addToast(err.message || err.toString(), "error");

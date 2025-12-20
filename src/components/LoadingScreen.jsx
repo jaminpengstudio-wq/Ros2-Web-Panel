@@ -1,6 +1,5 @@
 import { Component } from "react";
 
-
 class LoadingScreen extends Component {
     constructor(props) {
         super(props);
@@ -12,7 +11,7 @@ class LoadingScreen extends Component {
 
     componentDidMount() {
         const { duration = 5000 } = this.props; // 預設 5 秒
-        const stepTime = 50; // 每 50ms 更新一次
+        const stepTime = 50;                    // 每 50ms 更新一次
         const steps = duration / stepTime;
         let currentStep = 0;
 

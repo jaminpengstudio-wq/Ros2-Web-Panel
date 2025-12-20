@@ -8,6 +8,9 @@
     cursor: pointer;
     user-select: none;
     transition: all 0.15s ease;
+
+    /* 按鈕縮小 75% */
+    transform: scale(0.75);
 }
 
 .safetyStop-btn:active,
@@ -26,7 +29,7 @@
     gap: 6px;
 }
 
-/* ▶ 三角形圖示 (Resume) */
+/* ▶ Resume */
 .icon-play {
     width: 0;
     height: 0;
@@ -35,7 +38,7 @@
     border-left: 12px solid white;
 }
 
-/* ⏸ 兩條直線圖示 (Pause) */
+/* Pause */
 .icon-pause {
     display: flex;
     gap: 0.2rem;

@@ -1,10 +1,10 @@
 import { Component, createRef } from "react";
 import { Button } from "react-bootstrap";
 import rosApi from "../scripts/rosApi";
+import mqttService from "../scripts/MqttService";
 
 import RosControlPanel from "./RosControlPanel";
 import Map from "./Map";
-import Camera from "./Camera";
 import RobotState from "./RobotState";
 import Teleoperation from "./Teleoperation";
 import PowerStatus from "./PowerStatus";
@@ -12,13 +12,15 @@ import SafetyStop from "./SafetyStop";
 import Emergency from "./Emergency";
 import LoadingScreen from "./LoadingScreen";
 import ToastContainer from "./ToastContainer";
+import WebrtcCamera from "./WebrtcCamera";
 
 
 class Panel extends Component {
     constructor(props) {
         super(props);
-        this.mapRef = createRef();   // 用來呼叫 Map 子元件的函式
+        this.mapRef = createRef();     // 用來呼叫 Map 子元件的函式
         const savedState = localStorage.getItem("rightSidebarOpen") === "true";
+
         this.state = {
             goalMode: false,           // 是否處於導航模式
             isSidebarOpen: savedState,
@@ -27,9 +29,9 @@ class Panel extends Component {
 
             loading: false,            // 連線進度條狀態
             loadingMessage: "",        // 連線進度條訊息
-
             toasts: [],                // 土司訊息陣列
         };
+
         this.toastId = 0;
     }
 
@@ -42,27 +44,13 @@ class Panel extends Component {
     };
 
     async componentDidMount() {
-        // console.log("🔍 正在檢查 server 端 ROS 狀態...");
-
         const status = await rosApi.getStatus();
-        // console.log("📡 從 server 拿到狀態:", status);
 
         this.setState({
             currentMode: status.mode,
         });
 
-        if (!status.running) return; // ROS沒有在啟動不做任何事
-
-        // 如果ROS有在啟動-修正 UI
-        if (status.mode === "slam") {
-            this.setState({ isSlamming: true });
-            if (this.mapRef.current) this.mapRef.current.switchPoseTopic("slam");
-        }
-
-        if (status.mode === "nav") {
-            this.setState({ isSlamming: false });
-            if (this.mapRef.current) this.mapRef.current.switchPoseTopic("nav");
-        }
+        if (!status.running) return;
     }
 
     // 顯示 LoadingScreen
@@ -75,14 +63,13 @@ class Panel extends Component {
         });
     };
 
-    // 接收建圖 / 導航切換
+    // 切換模式狀態 slam / nav / idle
     handleModeChange = (mode) => {
-        // console.log("🛰️ 模式切換:", mode);
-
         this.setState({ currentMode: mode });
 
-        if (this.mapRef.current) {
-            this.mapRef.current.switchPoseTopic(mode);
+        // 在模式啟動時連線 MQTT
+        if (!mqttService.connected) {
+            mqttService.connect();
         }
     };
 
@@ -103,10 +90,8 @@ class Panel extends Component {
         }
     };
 
-    handleGoalSelected = (goal) => {
-        // console.log("導航目標已選擇:", goal);
-
-        // 點完導航目標，自動取消導航模式
+    // 點完導航目標，自動取消導航模式
+    handleGoalSelected = () => {
         this.setState({ goalMode: false });
     };
 
@@ -166,7 +151,11 @@ class Panel extends Component {
                             </div>
 
                             <div className="map-box">
-                                <Map ref={this.mapRef} onGoalSelected={this.handleGoalSelected} />
+                                <Map
+                                    ref={this.mapRef}
+                                    currentMode={this.state.currentMode}
+                                    onGoalSelected={this.handleGoalSelected}
+                                />
                             </div>
 
                             <div className="second-border robotState-box">
@@ -176,10 +165,9 @@ class Panel extends Component {
                     </div>
 
                     <div className="camera-panel">
-                        {/* <span className="mb-0">CAMERAS</span> */}
-
                         <div className="main-border camera-card">
-                            <Camera />
+
+                            <WebrtcCamera />
 
                             <div className="second-border control-box">
                                 <div className="safetyStop-area">
@@ -195,7 +183,6 @@ class Panel extends Component {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 

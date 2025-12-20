@@ -13,7 +13,7 @@
     z-index: 100;
 }
 
-/* 收起狀態：只留品牌，移除邊框與陰影 */
+/* 🔹 收起狀態：只留品牌，移除邊框與陰影 */
 .sidebar.collapsed {
     width: 160px;
     height: auto;
@@ -33,7 +33,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* justify-content: center; */
     padding: 0.8rem 0.5rem 0.5rem 0.5rem;
 }
 
