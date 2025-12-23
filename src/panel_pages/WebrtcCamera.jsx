@@ -22,7 +22,6 @@ class WebrtcCamera extends Component {
 
     // iOS 播放相關
     iosPlaybackUnlocked = false;
-    pendingStream = null;
 
     // 判斷是否 iOS / iPadOS 偵測（navigator.platform 雖被標示 deprecated，但目前仍是業界通用解法）
     // isIOS = () => {
@@ -66,7 +65,7 @@ class WebrtcCamera extends Component {
                 video.playsInline = true;
 
                 // 空播一次，iOS Safari 才會授權之後的 play()
-                await video.play().catch(() => { });
+                video.play().catch(() => { });
                 video.pause();
 
                 this.iosPlaybackUnlocked = true;
@@ -85,21 +84,13 @@ class WebrtcCamera extends Component {
                     sessionToken: aws.sessionToken,
                 },
                 onTrack: (stream) => {
-                    this.pendingStream = stream;
                     if (!this.videoRef.current) return;
 
                     const videoEl = this.videoRef.current;
                     videoEl.srcObject = stream;
 
-                    // 非 iOS：直接播
-                    if (!this.isIOS()) {
-                        videoEl.play().catch(() => { });
-                    }
-
-                    // iOS：只有在解鎖後才播
-                    if (this.isIOS() && this.iosPlaybackUnlocked) {
-                        videoEl.play().catch(() => { });
-                    }
+                    // iOS / 非 iOS 都直接播（iOS 已被解鎖）
+                    videoEl.play().catch(() => { });
                 },
             });
 
@@ -125,7 +116,6 @@ class WebrtcCamera extends Component {
             this.videoRef.current.srcObject = null;
         }
 
-        this.pendingStream = null;
         this.iosPlaybackUnlocked = false;
 
         this.setState({ connected: false });
