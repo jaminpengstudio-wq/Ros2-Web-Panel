@@ -1,4 +1,8 @@
 .safetyStop-btn {
+    --btn-size: 110px;
+    width: var(--btn-size);
+    height: var(--btn-size);
+
     border-radius: 50%;
     border: 2px solid rgba(0, 0, 0, 0.2);
     display: flex;
@@ -8,9 +12,6 @@
     cursor: pointer;
     user-select: none;
     transition: all 0.15s ease;
-
-    /* 按鈕縮小 75% */
-    transform: scale(0.75);
 }
 
 .safetyStop-btn:active,
@@ -29,7 +30,7 @@
     gap: 6px;
 }
 
-/* ▶ Resume */
+/* ▶ 三角形圖示 (Resume) */
 .icon-play {
     width: 0;
     height: 0;
@@ -38,7 +39,7 @@
     border-left: 12px solid white;
 }
 
-/* Pause */
+/* ⏸ 兩條直線圖示 (Pause) */
 .icon-pause {
     display: flex;
     gap: 0.2rem;

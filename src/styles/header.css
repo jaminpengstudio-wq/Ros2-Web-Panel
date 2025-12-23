@@ -69,10 +69,3 @@
     color: #00ff9f;
     text-shadow: 0 0 8px #00ff9f;
 }
-
-/* ======= Remove responsive header behavior ======= */
-@media (max-width: 767px) {
-    .sidebar {
-        display: none;
-    }
-}

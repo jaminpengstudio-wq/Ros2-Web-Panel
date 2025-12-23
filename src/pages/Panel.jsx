@@ -3,17 +3,18 @@ import { Button } from "react-bootstrap";
 import rosApi from "../scripts/rosApi";
 import mqttService from "../scripts/MqttService";
 
-import RosControlPanel from "./RosControlPanel";
-import Map from "./Map";
-import RobotState from "./RobotState";
-import Teleoperation from "./Teleoperation";
-import PowerStatus from "./PowerStatus";
-import SafetyStop from "./SafetyStop";
-import Emergency from "./Emergency";
-import LoadingScreen from "./LoadingScreen";
-import ToastContainer from "./ToastContainer";
-import WebrtcCamera from "./WebrtcCamera";
+import LoadingScreen from "../components/LoadingScreen";
+import ToastContainer from "../components/ToastContainer";
 
+import RosControlPanel from "../panel_pages/RosControlPanel";
+import Map from "../panel_pages/Map";
+import RobotState from "../panel_pages/RobotState";
+import Teleoperation from "../panel_pages/Teleoperation";
+import PowerStatus from "../panel_pages/PowerStatus";
+import SafetyStop from "../panel_pages/SafetyStop";
+import Emergency from "../panel_pages/Emergency";
+// import Camera from "../panel_pages/Camera";
+import WebrtcCamera from "../panel_pages/WebrtcCamera";
 
 class Panel extends Component {
     constructor(props) {
@@ -44,14 +45,18 @@ class Panel extends Component {
     };
 
     async componentDidMount() {
+        // console.log("🔍 正在檢查 server 端 ROS 狀態...");
+
         const status = await rosApi.getStatus();
+        // console.log("📡 從 server 拿到狀態:", status);
 
         this.setState({
             currentMode: status.mode,
         });
 
-        if (!status.running) return;
+        if (!status.running) return; // ROS沒有在啟動不做任何事
     }
+
 
     // 顯示 LoadingScreen
     showLoading = (message, duration = 5000, callback) => {
@@ -65,10 +70,12 @@ class Panel extends Component {
 
     // 切換模式狀態 slam / nav / idle
     handleModeChange = (mode) => {
+        // console.log("🛰️ 模式切換:", mode);
         this.setState({ currentMode: mode });
 
         // 在模式啟動時連線 MQTT
         if (!mqttService.connected) {
+            // console.log("🔌 MQTT 尚未連線 → 嘗試連線...");
             mqttService.connect();
         }
     };
@@ -90,16 +97,54 @@ class Panel extends Component {
         }
     };
 
-    // 點完導航目標，自動取消導航模式
-    handleGoalSelected = () => {
+    handleGoalSelected = (goal) => {
+        // console.log("導航目標已選擇:", goal);
+
+        // 點完導航目標，自動取消導航模式
         this.setState({ goalMode: false });
     };
+
+    // 手機版本-拖曳手勢控制toggle狀態
+    startDrag = (e) => {
+        e.preventDefault();
+        this.dragStartY = e.touches ? e.touches[0].clientY : e.clientY;
+        this.setState({ dragging: true });
+        document.addEventListener("mousemove", this.onDrag);
+        document.addEventListener("touchmove", this.onDrag);
+        document.addEventListener("mouseup", this.endDrag);
+        document.addEventListener("touchend", this.endDrag);
+    };
+
+    onDrag = (e) => {
+        if (!this.state.dragging) return;
+        const currentY = e.touches ? e.touches[0].clientY : e.clientY;
+        const delta = this.dragStartY - currentY;
+        // 0 = bottom hidden, positive = sheet up
+        this.setState({ dragDelta: Math.max(delta, 0) });
+    };
+
+    endDrag = () => {
+        document.removeEventListener("mousemove", this.onDrag);
+        document.removeEventListener("touchmove", this.onDrag);
+        document.removeEventListener("mouseup", this.endDrag);
+        document.removeEventListener("touchend", this.endDrag);
+
+        // 閾值決定是否展開或收合
+        if (this.state.dragDelta > 50) {
+            this.setState({ mobileControlOpen: true });
+        } else {
+            this.setState({ mobileControlOpen: false });
+        }
+        this.setState({ dragging: false, dragDelta: 0 });
+    };
+
 
     render() {
         const { goalMode, isSidebarOpen } = this.state;
 
         return (
-            <div>
+            <div className="pt-3">
+
                 {/* 土司容器 */}
                 <ToastContainer toasts={this.state.toasts} />
 
@@ -158,32 +203,75 @@ class Panel extends Component {
                                 />
                             </div>
 
-                            <div className="second-border robotState-box">
+                            <div className="second-border robotState-box desktop-only">
                                 <RobotState />
                             </div>
                         </div>
                     </div>
 
                     <div className="camera-panel">
-                        <div className="main-border camera-card">
+                        {/* <span className="mb-0">CAMERAS</span> */}
 
+                        <div className="main-border camera-card">
+                            {/* 保留接 Mqtt 實做 code(本地端測試用)
+                            <Camera /> */}
+
+                            {/* 實際使用 AWS KVS WebRTC */}
                             <WebrtcCamera />
 
-                            <div className="second-border control-box">
-                                <div className="safetyStop-area">
+                            <div className="second-border control-box desktop-only">
+                                <div>
                                     <SafetyStop />
                                 </div>
 
-                                <div className="emergency-area">
+                                <div>
                                     <Emergency />
                                 </div>
 
-                                <div className="teleop-area">
+                                <div>
                                     <Teleoperation />
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
+                    {/* 手機格式 */}
+                    <div className="mobile-panel">
+                        <div className="mobile-main-area">
+
+                            <div
+                                className="mobile-control-toggle"
+                                onMouseDown={this.startDrag}
+                                onTouchStart={this.startDrag}
+                                onClick={() =>
+                                    this.setState((prev) => ({
+                                        mobileControlOpen: !prev.mobileControlOpen
+                                    }))
+                                }
+                            >
+                                <div className="handle-line" />
+                                <div className="handle-line" />
+                                <div className="handle-line" />
+                            </div>
+
+                            <div className={
+                                `mobile-control-area ${this.state.mobileControlOpen ? 'expanded' : 'collapsed'}`
+                            }>
+                                <div>
+                                    <SafetyStop />
+                                </div>
+                                <div>
+                                    <Emergency />
+                                </div>
+                                <div>
+                                    <Teleoperation />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
 
             </div>

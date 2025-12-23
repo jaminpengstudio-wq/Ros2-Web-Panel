@@ -9,7 +9,6 @@ class SafetyStop extends Component {
             pressed: false,
             stopped: false,  // 是否已經觸發安全停止
         };
-        this.size = props.size || 140;
 
         this.safetyStopTopic = Config.SAFETY_STOP_TOPIC;
         this.cmdVelTopic = Config.CMD_VEL_TOPIC;
@@ -27,11 +26,13 @@ class SafetyStop extends Component {
         mqttService.publish(this.cmdVelTopic, stopMsg);
 
         this.setState({ stopped: true });
+        // console.log("🛑 Safety stop published via MQTT");
     }
 
     triggerResume = () => {
         mqttService.publish(this.safetyStopTopic, { data: false });
         this.setState({ stopped: false });
+        // console.log("▶️ Safety resume published via MQTT");
     }
 
     handlePress = () => {
@@ -62,8 +63,7 @@ class SafetyStop extends Component {
             <div
                 className={`safetyStop-btn ${pressed ? "pressed" : ""}`}
                 style={{
-                    width: this.size,
-                    height: this.size,
+
                     background: buttonColor,
                 }}
                 onClick={this.handlePress}

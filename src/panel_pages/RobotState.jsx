@@ -9,6 +9,7 @@ class RobotState extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            width: window.innerWidth,  // 螢幕寬度狀態
             connected: false,
 
             // 機器 pose
@@ -25,6 +26,8 @@ class RobotState extends Component {
     }
 
     componentDidMount() {
+        window.addEventListener("resize", this.handleResize);
+
         this.checkInterval = setInterval(() => {
             const isConn = mqttService.client?.connected || false;
             if (isConn && !this.state.connected) {
@@ -44,6 +47,8 @@ class RobotState extends Component {
 
 
     componentWillUnmount() {
+        window.removeEventListener("resize", this.handleResize);
+
         clearInterval(this.checkInterval);
         if (this.odomSubscription) {
             mqttService.unsubscribe(this.odomTopic, this.odomSubscription);
@@ -78,8 +83,17 @@ class RobotState extends Component {
         return euler.z * (180 / Math.PI);  // Yaw (degrees)
     }
 
+    handleResize = () => {
+        // RWS 時檢查裝置的寬度
+        // 方法一 檢查寬度，然後設定固定的寬度 resize
+        // console.log("innerWidth:", window.innerWidth);
+        this.setState({ width: window.innerWidth });
+    };
+
     render() {
-        const { x, y, orientation, linear_velocity, angular_velocity } = this.state;
+        const { x, y, orientation, linear_velocity, angular_velocity, width } = this.state;
+
+        const showIMU = width > 1180 || window.innerHeight > window.innerWidth;
 
         return (
             <div className="robot-state-wrapper">
@@ -115,9 +129,11 @@ class RobotState extends Component {
                     </div>
                 </div>
 
-                <div className="imu-state-block">
-                    <IMUAttitudeIndicator />
-                </div>
+                {showIMU && (
+                    <div className="imu-state-block">
+                        <IMUAttitudeIndicator />
+                    </div>
+                )}
             </div>
         );
     }

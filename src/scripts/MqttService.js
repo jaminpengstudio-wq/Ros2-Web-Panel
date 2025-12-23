@@ -24,7 +24,7 @@ class MqttService {
         });
 
         this.client.on("connect", () => {
-            console.log("[MQTT] Connected!");
+            // console.log("[MQTT] Connected!");
             this.connected = true;
             this.connecting = false;
 

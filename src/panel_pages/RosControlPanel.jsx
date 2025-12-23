@@ -20,6 +20,7 @@ class RosControlPanel extends Component {
         try {
             const maps = await rosApi.getMaps();
             this.setState({ maps, mapLoaded: true });
+            // console.log("📌 已取得地圖列表:", maps);
 
         } catch (err) {
             // console.error("❌ 取得地圖列表失敗:", err);
@@ -37,13 +38,13 @@ class RosControlPanel extends Component {
 
         // 沒有成功連線到後端
         if (this.state.maps.length === 0) {
-            this.props.addToast("尚未連線至機器，無法啟動模式", "warning");
+            this.props.addToast("尚未連線，無法啟動", "warning");
             return;
         }
 
         // 已有模式在運行 → 禁止
         if (this.props.currentMode !== "idle") {
-            this.props.addToast(`已在 ${this.props.currentMode} 模式中`, "warning");
+            this.props.addToast(`已在 ${this.props.currentMode} 模式`, "warning");
             return;
         }
 
@@ -63,6 +64,8 @@ class RosControlPanel extends Component {
             // 通知父元件(Panel.jsx)- 啟動不同的模式，切換訂閱不同的機器定位 Topic
             if (this.props.onModeChange) this.props.onModeChange(mode);
 
+            // 關閉右邊 Sidebar
+            // if (this.props.onCloseSidebar) this.props.onCloseSidebar();
         } catch (err) {
             this.props.addToast(err.message || err.toString(), "error");
         }
@@ -75,7 +78,7 @@ class RosControlPanel extends Component {
 
         // 沒有成功連線到後端
         if (this.state.maps.length === 0) {
-            this.props.addToast("尚未連線至機器，不需要停止 ROS", "warning");
+            this.props.addToast("尚未連線，不需要停止", "warning");
             return;
         }
 
@@ -87,6 +90,9 @@ class RosControlPanel extends Component {
             if (this.props.onModeChange) this.props.onModeChange("idle");
 
             this.props.setSlamming(false);
+
+            // 關閉右邊 Sidebar
+            // if (this.props.onCloseSidebar) this.props.onCloseSidebar();
         } catch (err) {
             this.props.addToast(err.message || err.toString(), "error");
         }

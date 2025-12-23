@@ -41,6 +41,8 @@ class IMUAttitudeIndicator extends Component {
         // 訂閱 IMU topic
         this.imuSubscription = (msg) => {
             const q = msg.imu.orientation;
+            // const gyro = msg.imu.angular_velocity;      // 沒使用
+            // const accel = msg.imu.linear_acceleration;  // 沒使用
 
             const quat = new THREE.Quaternion(q.x, q.y, q.z, q.w);
             const euler = new THREE.Euler().setFromQuaternion(quat, "ZYX");
@@ -57,6 +59,7 @@ class IMUAttitudeIndicator extends Component {
         };
 
         mqttService.subscribe(this.imuTopic, this.imuSubscription);
+        // console.log("✅ IMUAttitudeIndicator subscribed to MQTT IMU topic:", this.imuTopic);
     }
 
     render() {
@@ -130,7 +133,7 @@ class IMUAttitudeIndicator extends Component {
                                 <polygon
                                     points="0,-5 -5,5 5,5"
                                     fill="#ff0000"
-                                    transform={`rotate(${-heading})`}
+                                    transform={`rotate(${-heading})`}  // 注意方向修正
                                 />
 
                                 {/* 外框刻度 */}

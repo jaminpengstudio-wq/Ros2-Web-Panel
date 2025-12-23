@@ -2,7 +2,7 @@ import { Component } from "react";
 import mqttService from "../scripts/MqttService";
 
 // ========================
-// 使用真實電力數據請在外層 Panel.jsx 元件裡調整 < PowerStatus simulate = {false} />
+// 使用真實電力數據請在外層 Panel.jsx 元件裡調整 < PowerStatus simulate = { false} />
 // ========================
 class PowerStatus extends Component {
     constructor(props) {
@@ -16,6 +16,7 @@ class PowerStatus extends Component {
 
         // 使用模擬模式參數（從 props 傳入）
         this.simulate = props.simulate === true;
+        // console.log("PowerStatus simulate mode:", this.simulate, typeof (this.simulate));
 
         // 調整設定（
         this.simulateIntervalMs = 3000;  // (單位：毫秒）每 3 秒掉 1%

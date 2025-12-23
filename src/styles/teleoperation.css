@@ -1,0 +1,10 @@
+.tele-box {
+    --btn-size: 110px;
+    width: var(--btn-size);
+    height: var(--btn-size);
+
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    justify-content: center;
+}

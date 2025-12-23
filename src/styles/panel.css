@@ -1,3 +1,7 @@
+.mobile-panel {
+    display: none;
+}
+
 .power-area {
     display: flex;
     justify-content: end;
@@ -9,7 +13,7 @@
     top: 0;
     right: -0.3rem;
 
-    width: 260px;
+    width: 220px;
     height: 100vh;
     background: radial-gradient(circle at 80% 20%, #111111 0%, #1b1f2b 90%);
     display: flex;
@@ -70,6 +74,7 @@
     margin: 0.4rem 0 0 0;
 
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     align-items: stretch;
 }
@@ -140,12 +145,381 @@
 
 /* 遙控按鈕合併區塊 */
 .control-box {
-    flex: 0 0 160px;
-    height: 160px;
+    --control-size: 160px;
+    flex: 0 0 var(--control-size);
+    height: var(--control-size);
+
     width: 100%;
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 2rem;
     padding: 0.5rem 0.2rem;
     margin-top: 0.5rem;
+}
+
+
+/* ===============================
+   iPad / 平板 820 x 1180 直式：上下排列
+================================ */
+/* @media (pointer: coarse) and (min-width: 820px) and (max-width: 1180px) { */
+@media (pointer: coarse) and (orientation: portrait) and (min-width: 700px) {
+    .mobile-panel {
+        display: none;
+    }
+
+    .toast-container {
+        left: 16px;
+        top: 16px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        height: auto;
+    }
+
+    /* 地圖區塊給較多空間 */
+    .map-panel {
+        order: 1;
+        width: 100%;
+        min-height: 50vh;
+    }
+
+    /* 影像區塊改成在上方 */
+    .camera-panel {
+        order: 0;
+        width: 100%;
+        min-height: 50vh;
+    }
+
+    .map-panel,
+    .camera-panel {
+        flex: 0 0 auto;
+        height: auto;
+    }
+
+    /* Map Camera 卡片不要被撐爆 */
+    .map-card,
+    .camera-card {
+        height: 100%;
+    }
+}
+
+
+/* ===============================
+   手機 428x926 直式 的 UI 變動
+================================ */
+/* @media (pointer: coarse) and (max-width: 600px) { */
+@media (pointer: coarse) and (orientation: portrait) and (max-width: 600px) {
+
+    /* 隱藏 */
+    .desktop-only {
+        display: none !important;
+    }
+
+    .toast-container {
+        left: 12px;
+        top: 20px;
+    }
+
+    /* 左/右側 sidebar */
+    .sidebar,
+    .right-sidebar {
+        width: 180px;
+    }
+
+    /* 右側 sidebar 按鈕間距 */
+    .ros-controls-group {
+        gap: 0.8rem;
+    }
+
+    .section-header {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    /* 顯示手機版專屬區塊 */
+    .mobile-panel {
+        display: block;
+        width: 100%;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .mobile-main-area {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    /* 控制 toggle */
+    .mobile-control-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        /* 小尺寸 */
+        width: 36px;
+        /* 包含三條線 */
+        height: 24px;
+        cursor: grab;
+        z-index: 1001;
+        transition: transform 0.2s ease;
+    }
+
+    /* 拖曳時改成抓取手勢 */
+    .mobile-control-toggle:active {
+        cursor: grabbing;
+    }
+
+    /* 三條線 */
+    .mobile-control-toggle .handle-line {
+        width: 20px;
+        height: 2px;
+        background: #fff;
+        margin: 2px 0;
+        border-radius: 1px;
+        transition: all 0.2s ease;
+    }
+
+    /* 當控制區展開時按鈕往上推 */
+    .mobile-control-area.expanded+.mobile-control-toggle {
+        transform: translate(-50%, -60px);
+    }
+
+    /* 手機收合控制區 */
+    .mobile-control-area {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        right: 0;
+        gap: 1rem;
+        padding: 0 0.5rem;
+        background: none;
+
+        z-index: 1000;
+        transition: bottom 0.3s ease-in-out;
+
+        display: flex;
+        flex: 0 0 6rem;
+        height: 6rem;
+        align-items: start;
+        justify-content: space-around;
+
+    }
+
+    .safetyStop-btn,
+    .emergency-btn,
+    .tele-box {
+        --btn-size: 70px;
+    }
+
+    .safetyStop-text,
+    .emergency-text {
+        font-size: 0.6rem;
+        gap: 4px;
+    }
+
+    /* ▶ 三角形圖示 (Resume) */
+    .icon-play {
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        border-left: 6px solid white;
+    }
+
+    /* ⏸ 兩條直線圖示 (Pause) */
+    .icon-pause {
+        gap: 0.15rem;
+    }
+
+    .icon-pause::before,
+    .icon-pause::after {
+        content: "";
+        display: block;
+        width: 3px;
+        height: 10px;
+        background: white;
+        border-radius: 2px;
+    }
+
+    /* 收合 */
+    .mobile-control-area.collapsed {
+        transform: translateY(100%);
+    }
+
+    /* 展開 */
+    .mobile-control-area.expanded {
+        bottom: 0;
+    }
+}
+
+
+/* ===============================
+   手機 926x428 橫式 的 UI 變動
+================================ */
+@media (pointer: coarse) and (orientation: landscape) and (max-height: 600px) {
+
+    /* 隱藏 */
+    .desktop-only {
+        display: none !important;
+    }
+
+    .toast-container {
+        right: 220px;
+        top: 18px;
+    }
+
+    /* 左/右側 sidebar */
+    .sidebar,
+    .right-sidebar {
+        width: 180px;
+    }
+
+    /* 右側 sidebar 按鈕間距 */
+    .ros-controls-group {
+        gap: 0.8rem;
+    }
+
+    .section-header {
+        display: flex !important;
+        flex-direction: row;
+        gap: 0;
+        padding: 0.5rem;
+    }
+
+    .map-card {
+        margin-right: 0.5rem;
+    }
+
+    .camera-card {
+        margin-left: 0.5rem;
+    }
+
+    /* 顯示手機版專屬區塊 */
+    .mobile-panel {
+        display: block;
+        width: auto;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    .mobile-main-area {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    /* 控制 toggle */
+    .mobile-control-toggle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        /* 小尺寸 */
+        width: 36px;
+        /* 包含三條線 */
+        height: 24px;
+        cursor: grab;
+        z-index: 1001;
+        transition: transform 0.2s ease;
+    }
+
+    /* 拖曳時改成抓取手勢 */
+    .mobile-control-toggle:active {
+        cursor: grabbing;
+    }
+
+    /* 三條線 */
+    .mobile-control-toggle .handle-line {
+        width: 20px;
+        height: 2px;
+        background: #fff;
+        margin: 2px 0;
+        border-radius: 1px;
+        transition: all 0.2s ease;
+    }
+
+    /* 當控制區展開時按鈕往上推 */
+    .mobile-control-area.expanded+.mobile-control-toggle {
+        transform: translate(-50%, -60px);
+    }
+
+    /* 手機收合控制區 */
+    .mobile-control-area {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        right: 0;
+        gap: 1rem;
+        padding: 0 1.2rem;
+        background: none;
+
+        z-index: 1000;
+        transition: bottom 0.3s ease-in-out;
+
+        display: flex;
+        flex: 0 0 6rem;
+        height: 6rem;
+        align-items: center;
+        justify-content: end;
+    }
+
+    .safetyStop-btn,
+    .emergency-btn,
+    .tele-box {
+        --btn-size: 70px;
+    }
+
+    .safetyStop-text,
+    .emergency-text {
+        font-size: 0.6rem;
+        gap: 4px;
+    }
+
+    /* ▶ 三角形圖示 (Resume) */
+    .icon-play {
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+        border-left: 6px solid white;
+    }
+
+    /* ⏸ 兩條直線圖示 (Pause) */
+    .icon-pause {
+        gap: 0.15rem;
+    }
+
+    .icon-pause::before,
+    .icon-pause::after {
+        content: "";
+        display: block;
+        width: 3px;
+        height: 10px;
+        background: white;
+        border-radius: 2px;
+    }
+
+    /* 收合 */
+    .mobile-control-area.collapsed {
+        transform: translateY(100%);
+    }
+
+    /* 展開 */
+    .mobile-control-area.expanded {
+        bottom: 0;
+    }
 }

@@ -1,7 +1,9 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 
-const Joystick = ({ size = 120, onMove, onStop }) => {
+const Joystick = ({ onMove, onStop }) => {
     const baseRef = useRef(null);
+    const [size, setSize] = useState(0);
+
     const [stickPos, setStickPos] = useState({ x: 0, y: 0 });
     const [isDragging, setIsDragging] = useState(false);
 
@@ -17,7 +19,8 @@ const Joystick = ({ size = 120, onMove, onStop }) => {
 
     // 🔵 拖動搖桿
     const moveStick = useCallback((e) => {
-        if (!baseRef.current) return;
+        if (!baseRef.current || size === 0) return;
+
         const rect = baseRef.current.getBoundingClientRect();
         const dx = e.clientX - (rect.left + radius);
         const dy = e.clientY - (rect.top + radius);
@@ -28,7 +31,7 @@ const Joystick = ({ size = 120, onMove, onStop }) => {
         const y = Math.sin(angle) * distance;
 
         setStickPos({ x, y });
-    }, [radius, stickRadius]);
+    }, [size, radius, stickRadius]);
 
     // 🔴 放開搖桿
     const handlePointerUp = useCallback(() => {
@@ -69,25 +72,28 @@ const Joystick = ({ size = 120, onMove, onStop }) => {
         };
     }, [isDragging, moveStick, handlePointerUp]);
 
+    // 用 DOM 尺寸當「唯一尺寸來源」
+    useEffect(() => {
+        if (!baseRef.current) return;
+
+        const updateSize = () => {
+            const rect = baseRef.current.getBoundingClientRect();
+            setSize(rect.width);
+        };
+
+        updateSize();
+
+        // RWD / resize 時也會更新: 也就是 --btn-size 會從上層 teleoperation.css .tele-box 自動往下更動這裡
+        window.addEventListener("resize", updateSize);
+        return () => window.removeEventListener("resize", updateSize);
+    }, []);
+
+
     return (
         <div
             ref={baseRef}
             onPointerDown={handlePointerDown}
-            style={{
-                cursor: "pointer",
-                width: size,
-                height: size,
-                borderRadius: "50%",
-                background: "radial-gradient(circle at 30% 30%, #2a2a3a, #1b1b26 80%)",
-                border: "1.5px solid #5900ff",
-                position: "relative",
-                touchAction: "none",
-                boxShadow: `
-                    inset 6px 5px 12px rgba(16, 0, 47, 0.93),
-                    inset -6px -5px 11px rgba(89, 0, 255, 0.5),
-                    0 0 10px rgba(89, 0, 255, 0.6)
-                    `,
-            }}
+            className="joystick-base"
         >
             <div
                 style={{

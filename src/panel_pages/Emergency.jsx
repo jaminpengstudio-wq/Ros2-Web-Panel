@@ -8,7 +8,6 @@ class Emergency extends Component {
         this.state = {
             pressed: false,  // 按鈕按下動畫
         };
-        this.size = props.size || 140;
 
         this.cancelNavTopic = Config.EMERGENCY_CANCEL_NAV_TOPIC;
         this.cmdVelTopic = Config.CMD_VEL_TOPIC;
@@ -23,12 +22,14 @@ class Emergency extends Component {
         // 發送取消導航訊號
         mqttService.publish(this.cancelNavTopic, { data: true });
 
-        // 同時發送零速度
+        // 同時發送零速度到 /cmd_vel
         const stopMsg = {
             linear: { x: 0.0, y: 0.0, z: 0.0 },
             angular: { x: 0.0, y: 0.0, z: 0.0 },
         };
         mqttService.publish(this.cmdVelTopic, stopMsg);
+
+        // console.log("🛑 Emergency navigation cancel published via MQTT");
 
         // 150ms 回彈動畫
         setTimeout(() => this.setState({ pressed: false }), 150);
@@ -40,7 +41,6 @@ class Emergency extends Component {
         return (
             <div
                 className={`emergency-btn ${pressed ? "pressed" : ""}`}
-                style={{ width: this.size, height: this.size }}
                 onClick={this.handlePress}
             >
                 <span className="emergency-text">EMERGENCY</span>

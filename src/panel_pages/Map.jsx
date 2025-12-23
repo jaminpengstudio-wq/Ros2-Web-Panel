@@ -1,7 +1,7 @@
 import { Component, createRef } from "react";
 import MapRenderer from "../scripts/MapRenderer";
-import Config from "../scripts/config";
 import mqttService from "../scripts/MqttService";
+import Config from "../scripts/config";
 
 // 全域新增儲存導航時的靜態地圖
 let cachedStaticMapInfo = null;
@@ -78,7 +78,7 @@ class Map extends Component {
                 this.publishGoal(goal);
 
                 // 如果父元件有 callback，通知 Home.jsx - 確認導航目標後要重新設定按鈕初始化
-                if (this.props.onGoalSelected) this.props.onGoalSelected();
+                if (this.props.onGoalSelected) this.props.onGoalSelected(goal);
             };
         }
 
@@ -132,7 +132,7 @@ class Map extends Component {
         this.setState({ mapReady: false });
 
         if (mode === "slam") {
-            // 訂 map/info 建立基底
+            // 先訂 map/info 建立基底
             this.mapInfoCallback = (msg) => {
                 if (!msg?.info || !msg?.data) return;
                 this.renderer.updateStaticMap(msg);
@@ -140,7 +140,7 @@ class Map extends Component {
             };
             mqttService.subscribe(Config.MAP_INFO_TOPIC, this.mapInfoCallback);
 
-            // 訂閱地圖增量更新-片段更新地圖
+            // 再訂閱地圖增量更新-片段更新地圖
             this.mapUpdateCallback = (msg) => {
                 if (!msg?.map_version) return;
                 this.renderer.applyMapUpdate(msg);
@@ -149,7 +149,7 @@ class Map extends Component {
             mqttService.subscribe(Config.MAP_UPDATE_TOPIC, this.mapUpdateCallback);
 
         } else if (mode === "nav") {
-            // 如果有轉換頁面再回來這個頁面時，就使用之前儲存的靜態地圖資訊渲染
+            // 新增如果有轉換頁面再回來這個頁面時，就使用之前儲存的靜態地圖資訊渲染
             if (cachedStaticMapInfo && !this.state.mapReady) {
                 this.renderer.updateStaticMap(cachedStaticMapInfo);
                 this.setState({ mapReady: true });
@@ -159,7 +159,7 @@ class Map extends Component {
             this.mapInfoCallback = (msg) => {
                 if (!msg?.info || !msg?.data) return;
 
-                // 如果有轉換頁面就去更新快取地圖
+                // 新增如果有轉換頁面就去更新快取地圖
                 cachedStaticMapInfo = msg;
 
                 this.renderer.updateStaticMap(msg);
@@ -170,7 +170,7 @@ class Map extends Component {
         }
     }
 
-    // 建圖與導航統一訂閱 odom
+    // 建圖與導航統一訂閱 odom，不再依模式切換
     initOdomSubscription() {
         this.odomCallback = (msg) => {
             if (!msg?.pose) return;

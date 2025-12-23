@@ -128,15 +128,14 @@ class Teleoperation extends Component {
 
     render() {
         return (
-            <div>
-                <div style={{ width: "100%", display: "flex", justifyContent: "center", paddingLeft: "1rem" }}>
-                    <Joystick
-                        size={112}
-                        onMove={this.handleMove}
-                        onStop={this.handleStop}
-                    />
-                </div>
+
+            <div className="tele-box">
+                <Joystick
+                    onMove={this.handleMove}
+                    onStop={this.handleStop}
+                />
             </div>
+
         );
     }
 }

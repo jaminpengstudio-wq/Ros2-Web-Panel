@@ -30,6 +30,7 @@ class WebrtcCamera extends Component {
         }, 2000);
     };
 
+
     // 啟動 KVS WebRTC Viewer
     startWebrtc = async () => {
         this.setState({ loading: true, error: null });
@@ -56,9 +57,10 @@ class WebrtcCamera extends Component {
 
             // 3️⃣ 啟動
             await this.kvsClient.start();
+            // console.log("✅ WebRTC Viewer 已啟動");
             this.setState({ loading: false, connected: true });
-
         } catch (err) {
+            // console.error("❌ WebRTC Viewer 啟動失敗:", err);
             this.setState({ loading: false, connected: false });
             this.showError("WebRTC 影像連線失敗");
         }

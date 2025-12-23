@@ -25,6 +25,12 @@ class Header extends Component {
     };
 
     render() {
+        // 在登入頁不顯示 Header
+        const { location } = this.props;
+        if (location.pathname === "/") {
+            return null;
+        }
+
         const { isOpen } = this.state;
 
         return (
@@ -37,7 +43,6 @@ class Header extends Component {
 
                 {isOpen && (
                     <nav className="sidebar-links">
-                        <Link to="/" className="nav-item" onClick={this.closeSidebar}>Info</Link>
                         <Link to="/panel" className="nav-item" onClick={this.closeSidebar}>Panel</Link>
                     </nav>
                 )}

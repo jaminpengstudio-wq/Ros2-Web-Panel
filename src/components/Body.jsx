@@ -1,17 +1,25 @@
 import { Component } from "react";
 import { Container } from "react-bootstrap";
 import { Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import Panel from "./Panel";
 
+import ProtectedRoute from "./ProtectedRoute";
+import Login from "../pages/Login";
+import Panel from "../pages/Panel";
 
 class Body extends Component {
     render() {
         return (
-            <Container fluid className="p-3">
+            <Container fluid >
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/panel" element={<Panel />} />
+                    <Route path="/" element={<Login />} />
+                    <Route
+                        path="/panel"
+                        element={
+                            <ProtectedRoute>
+                                <Panel />
+                            </ProtectedRoute>
+                        }
+                    />
                 </Routes>
             </Container>
         );

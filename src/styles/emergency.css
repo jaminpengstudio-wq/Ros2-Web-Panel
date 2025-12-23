@@ -1,4 +1,8 @@
 .emergency-btn {
+    --btn-size: 110px;
+    width: var(--btn-size);
+    height: var(--btn-size);
+
     border-radius: 50%;
     background: radial-gradient(circle, #ff4444 0%, #b71c1c 90%);
     border: 2px solid #ff0000;
@@ -9,9 +13,6 @@
     cursor: pointer;
     user-select: none;
     transition: all 0.15s ease;
-
-    /* 按鈕縮小 75% */
-    transform: scale(0.75);
 }
 
 .emergency-btn:active,

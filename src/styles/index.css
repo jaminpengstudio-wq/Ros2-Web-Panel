@@ -1,3 +1,22 @@
+/* ===== CSS imports ===== */
+@import './login.css';
+@import './header.css';
+@import './rosControlPanel.css';
+@import './map.css';
+@import './webrtcCamera.css';
+@import './robotState.css';
+@import './imuAttitudeIndicator.css';
+@import './powerState.css';
+@import './safetyStop.css';
+@import './emergency.css';
+@import './teleoperation.css';
+@import './joystick.css';
+@import './loadingScreen.css';
+@import './toast.css';
+@import './panel.css';
+
+
+/* ===== Global base styles ===== */
 body {
   margin: 0;
   padding: 0;

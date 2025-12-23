@@ -1,0 +1,19 @@
+.joystick-base {
+    /* RWD / resize 時也會更新 --btn-size 會從上層 teleoperation.css .tele-box 自動往下更動這裡 */
+
+    width: var(--btn-size);
+    height: var(--btn-size);
+
+    border-radius: 50%;
+    position: relative;
+    cursor: pointer;
+    touch-action: none;
+
+    background: radial-gradient(circle at 30% 30%, #2a2a3a, #1b1b26 80%);
+    border: 1.5px solid #5900ff;
+
+    box-shadow:
+        inset 6px 5px 12px rgba(16, 0, 47, 0.93),
+        inset -6px -5px 11px rgba(89, 0, 255, 0.5),
+        0 0 10px rgba(89, 0, 255, 0.6);
+}
