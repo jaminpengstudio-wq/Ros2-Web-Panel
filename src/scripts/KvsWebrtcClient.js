@@ -140,11 +140,11 @@ export default class KvsWebrtcClient {
             });
 
             this.signalingChannelClient.on("error", (err) => {
-                console.error("❌ Signaling error", err);
+                console.error("Signaling error", err);
             });
 
             this.signalingChannelClient.on("close", () => {
-                console.log("❌ Signaling closed");
+                console.log("Signaling closed");
             });
 
             /* 7️⃣ 開始連線 signaling */

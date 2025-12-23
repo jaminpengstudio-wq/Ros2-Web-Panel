@@ -20,6 +20,29 @@ class WebrtcCamera extends Component {
     errorTimer = null;
     cooldownTimer = null;
 
+    // iOS 播放相關
+    iosPlaybackUnlocked = false;
+    pendingStream = null;
+
+    // 判斷是否 iOS / iPadOS 偵測（navigator.platform 雖被標示 deprecated，但目前仍是業界通用解法）
+    // isIOS = () => {
+    //     return (
+    //         /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    //         (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1)
+    //     );
+    // };
+    isIOS = () => {
+        const ua = navigator.userAgent || "";
+        const isIOS = /iPad|iPhone|iPod/.test(ua);
+
+        const isIPadOS =
+            navigator.platform === "MacIntel" &&
+            navigator.maxTouchPoints > 1;
+
+        return isIOS || isIPadOS;
+    };
+
+
     // 顯示錯誤（2 秒後自動消失）
     showError = (message) => {
         this.setState({ error: message });
@@ -36,6 +59,19 @@ class WebrtcCamera extends Component {
         this.setState({ loading: true, error: null });
 
         try {
+            // iOS：在「點擊當下」解鎖播放權限 (隱藏式)
+            const video = this.videoRef.current;
+            if (this.isIOS() && video && !this.iosPlaybackUnlocked) {
+                video.muted = true;
+                video.playsInline = true;
+
+                // 空播一次，iOS Safari 才會授權之後的 play()
+                await video.play().catch(() => { });
+                video.pause();
+
+                this.iosPlaybackUnlocked = true;
+            }
+
             // 1️⃣ 向 server 取得 AWS temporary credentials
             const aws = await getAwsKvsCredentials();
 
@@ -49,8 +85,20 @@ class WebrtcCamera extends Component {
                     sessionToken: aws.sessionToken,
                 },
                 onTrack: (stream) => {
-                    if (this.videoRef.current) {
-                        this.videoRef.current.srcObject = stream;
+                    this.pendingStream = stream;
+                    if (!this.videoRef.current) return;
+
+                    const videoEl = this.videoRef.current;
+                    videoEl.srcObject = stream;
+
+                    // 非 iOS：直接播
+                    if (!this.isIOS()) {
+                        videoEl.play().catch(() => { });
+                    }
+
+                    // iOS：只有在解鎖後才播
+                    if (this.isIOS() && this.iosPlaybackUnlocked) {
+                        videoEl.play().catch(() => { });
                     }
                 },
             });
@@ -73,8 +121,13 @@ class WebrtcCamera extends Component {
             this.kvsClient = null;
         }
         if (this.videoRef.current) {
+            this.videoRef.current.pause();  // 暫停 iOS播放
             this.videoRef.current.srcObject = null;
         }
+
+        this.pendingStream = null;
+        this.iosPlaybackUnlocked = false;
+
         this.setState({ connected: false });
     };
 
@@ -162,9 +215,9 @@ class WebrtcCamera extends Component {
                 <div className="webrtc-video-wrapper">
                     <video
                         ref={this.videoRef}
-                        autoPlay
-                        playsInline
                         muted
+                        playsInline
+                        autoPlay
                         controls={false}
                         className="webrtc-video"
                     />
