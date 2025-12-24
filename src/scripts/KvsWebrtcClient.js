@@ -73,28 +73,17 @@ export default class KvsWebrtcClient {
                 })
             );
 
-            // 方法一
-            // const iceServers = [
-            //     { urls: `stun:stun.kinesisvideo.${this.region}.amazonaws.com:443` },
-            //     ...iceResp.IceServerList.map((s) => ({
-            //         urls: s.Uris,
-            //         username: s.Username,
-            //         credential: s.Password,
-            //     })),
-            // ];
-            // 方法二
+            // 方法三
             const iceServers = [
-                {
-                    urls: `stun:stun.kinesisvideo.${this.region}.amazonaws.com:443`,
-                },
-                ...iceResp.IceServerList
-                    .map(server => ({
-                        urls: server.Uris.filter(uri => uri.startsWith("turns:")),
-                        username: server.Username,
-                        credential: server.Password,
-                    }))
-                    .filter(s => s.urls.length > 0),
-            ];
+                { urls: `stun:stun.kinesisvideo.${this.region}.amazonaws.com:443` },
+                ...iceResp.IceServerList.map(server => ({
+                    urls: server.Uris.filter(
+                        uri => uri.startsWith("turn:")
+                    ),
+                    username: server.Username,
+                    credential: server.Password,
+                })),
+            ].filter(s => s.urls.length > 0);
 
 
             /* 5️⃣ PeerConnection */
@@ -122,7 +111,6 @@ export default class KvsWebrtcClient {
 
             this.signalingChannelClient.on("open", async () => {
 
-                // Viewer 主動送 offer
                 const offer = await this.pc.createOffer({
                     offerToReceiveVideo: true,
                 });
