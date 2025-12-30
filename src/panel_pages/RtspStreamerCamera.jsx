@@ -46,7 +46,7 @@ class RtspStreamerCamera extends Component {
             initialized: false
         });
 
-        const hlsUrl = "http://hls_bot1_camera.jampenglab.tw/bot1/frontCam/index.m3u8";
+        const hlsUrl = "https://hls_bot1_camera.jampenglab.tw/bot1/frontCam/index.m3u8";
 
         try {
             await fetch(hlsUrl, { method: "HEAD" });
