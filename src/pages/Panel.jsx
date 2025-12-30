@@ -13,8 +13,7 @@ import Teleoperation from "../panel_pages/Teleoperation";
 import PowerStatus from "../panel_pages/PowerStatus";
 import SafetyStop from "../panel_pages/SafetyStop";
 import Emergency from "../panel_pages/Emergency";
-// import Camera from "../panel_pages/Camera";
-import WebrtcCamera from "../panel_pages/WebrtcCamera";
+import RtspStreamerCamera from "../panel_pages/RtspStreamerCamera";
 
 class Panel extends Component {
     constructor(props) {
@@ -210,14 +209,9 @@ class Panel extends Component {
                     </div>
 
                     <div className="camera-panel">
-                        {/* <span className="mb-0">CAMERAS</span> */}
-
                         <div className="main-border camera-card">
-                            {/* 保留接 Mqtt 實做 code(本地端測試用)
-                            <Camera /> */}
 
-                            {/* 實際使用 AWS KVS WebRTC */}
-                            <WebrtcCamera />
+                            <RtspStreamerCamera currentMode={this.state.currentMode} />
 
                             <div className="second-border control-box desktop-only">
                                 <div>

@@ -3,7 +3,7 @@
 @import './header.css';
 @import './rosControlPanel.css';
 @import './map.css';
-@import './webrtcCamera.css';
+@import './rtspStreamerCamera.css';
 @import './robotState.css';
 @import './imuAttitudeIndicator.css';
 @import './powerState.css';
