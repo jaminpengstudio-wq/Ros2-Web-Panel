@@ -60,6 +60,17 @@ class RtspStreamerCamera extends Component {
         const video = this.videoRef.current;
         if (!video) return;
 
+        // iPhone & iPad 原生播放 HLS
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+        if (isIOS && video.canPlayType("application/vnd.apple.mpegurl")) {
+            video.src = hlsUrl;
+            video.play().catch(() => { });
+            this.setState({ initialized: true });
+            return;
+        }
+
+        // 其他裝置使用 hls.js
         const hls = new Hls({
             enableWorker: true,
             lowLatencyMode: true
@@ -111,6 +122,10 @@ class RtspStreamerCamera extends Component {
                     key={this.state.reloadKey}
                     ref={this.videoRef}
                     autoPlay
+                    muted
+                    playsInline
+                    webkit-playsinline="true"
+                    controls={false}
                     className="rtsp-video"
                     style={{ opacity: isIdle ? 0 : 1 }}
                 />
