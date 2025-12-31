@@ -96,7 +96,6 @@ class RtspStreamerCamera extends Component {
         return (
             <div className="rtsp-camera-container">
 
-                {/* Reload button */}
                 {!isIdle && (
                     <div className="rtsp-btn-group">
                         <button
@@ -112,17 +111,14 @@ class RtspStreamerCamera extends Component {
                     key={this.state.reloadKey}
                     ref={this.videoRef}
                     autoPlay
-                    controls
                     className="rtsp-video"
                     style={{ opacity: isIdle ? 0 : 1 }}
                 />
 
-                {/* Idle 顯示 */}
                 {isIdle && (
                     <div className="rtsp-overlay">等待連線中 ...</div>
                 )}
 
-                {/* Error 顯示 */}
                 {!isIdle && error && (
                     <div className="rtsp-overlay rtsp-error">
                         影像尚未連線
