@@ -64,7 +64,24 @@ class RtspStreamerCamera extends Component {
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
         if (isIOS && video.canPlayType("application/vnd.apple.mpegurl")) {
+            video.setAttribute("playsInline", "");
+            video.setAttribute("webkit-playsinline", "true");
+            video.setAttribute("x-webkit-airplay", "allow");
+            video.setAttribute("disableRemotePlayback", "");
+
             video.src = hlsUrl;
+
+            // 避免 Safari 停住
+            video.addEventListener("waiting", () => {
+                video.play().catch(() => { });
+            });
+
+            video.addEventListener("pause", () => {
+                if (!video.ended) {
+                    video.play().catch(() => { });
+                }
+            });
+
             video.play().catch(() => { });
             this.setState({ initialized: true });
             return;
@@ -121,11 +138,13 @@ class RtspStreamerCamera extends Component {
                 <video
                     key={this.state.reloadKey}
                     ref={this.videoRef}
+                    controls={false}
                     autoPlay
                     muted
                     playsInline
                     webkit-playsinline="true"
-                    controls={false}
+                    x-webkit-airplay="allow"
+                    disableRemotePlayback
                     className="rtsp-video"
                     style={{ opacity: isIdle ? 0 : 1 }}
                 />
