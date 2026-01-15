@@ -3,7 +3,7 @@ import KvsWebrtcClient from "../scripts/KvsWebrtcClient";
 import { getAwsKvsCredentials } from "../scripts/AwsCredentialApi";
 import { startCameraGstreamer, stopCameraGstreamer } from "../scripts/rosApi";
 
-class WebrtcCamera extends Component {
+class AwsWebrtcCamera extends Component {
     videoRef = createRef();
 
     state = {
@@ -141,8 +141,9 @@ class WebrtcCamera extends Component {
                         </button>
                     )}
 
-                    {/* ROS Camera Master 啟動 / 停止 */}
-                    <button
+                    {/* 使用虛擬環境的鏡頭需要這個按鈕，啟動 / 停止 ROS Camera Master */}
+                    {/* 部屬實體機器時，使用的真實鏡頭在啟動 server 時就同時啟動連線，這個按鈕就要註解 */}
+                    {/* <button
                         onClick={this.toggleCamera}
                         disabled={cameraDisabled}
                         className={`webrtc-btn ${cameraRunning ? "webrtc-btn-active" : ""
@@ -155,7 +156,7 @@ class WebrtcCamera extends Component {
                                 : cameraRunning
                                     ? "停止攝影機"
                                     : "啟動攝影機"}
-                    </button>
+                    </button> */}
                 </div>
 
                 {/* Video 區塊（含錯誤 overlay） */}
@@ -180,4 +181,4 @@ class WebrtcCamera extends Component {
     }
 }
 
-export default WebrtcCamera;
+export default AwsWebrtcCamera;

@@ -13,7 +13,9 @@ import Teleoperation from "../panel_pages/Teleoperation";
 import PowerStatus from "../panel_pages/PowerStatus";
 import SafetyStop from "../panel_pages/SafetyStop";
 import Emergency from "../panel_pages/Emergency";
-import RtspStreamerCamera from "../panel_pages/RtspStreamerCamera";
+
+import AwsWebrtcCamera from "../panel_pages/AwsWebrtcCamera";
+// import RtspStreamerCamera from "../panel_pages/RtspStreamerCamera";
 
 class Panel extends Component {
     constructor(props) {
@@ -44,16 +46,13 @@ class Panel extends Component {
     };
 
     async componentDidMount() {
-        // console.log("🔍 正在檢查 server 端 ROS 狀態...");
-
         const status = await rosApi.getStatus();
-        // console.log("📡 從 server 拿到狀態:", status);
 
         this.setState({
             currentMode: status.mode,
         });
 
-        if (!status.running) return; // ROS沒有在啟動不做任何事
+        if (!status.running) return;
     }
 
 
@@ -211,7 +210,11 @@ class Panel extends Component {
                     <div className="camera-panel">
                         <div className="main-border camera-card">
 
-                            <RtspStreamerCamera currentMode={this.state.currentMode} />
+                            {/* 使用 AWS KVS WebRTC */}
+                            <AwsWebrtcCamera />
+
+                            {/* 使用 RTSP 格式轉換  */}
+                            {/* <RtspStreamerCamera currentMode={this.state.currentMode} /> */}
 
                             <div className="second-border control-box desktop-only">
                                 <div>

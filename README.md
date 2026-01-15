@@ -1,70 +1,111 @@
-# Getting Started with Create React App
+# Web Monitoring UI – VisionBot Dashboard
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 專案定位與說明
 
-## Available Scripts
+Web Monitoring UI 是 VisionBot 系統的 **Web 端監控與操作介面 (Dashboard / Control Panel)**。
 
-In the project directory, you can run:
+此專案的目標 :
 
-### `npm start`
+- 提供 **遠端監控** (影像 / 狀態)
+- 提供 **機器人操作與導航指令下發**
+- 作為使用者與機器人系統之間的 **唯一入口**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+> Web Monitoring UI **不直接連線 ROS**，所有控制與資料皆透過中介服務完成。
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Main Dashboard
 
-### `npm test`
+<!-- ![Dashboard Preview](images/dashboard_overview.png) -->
+<p align="center">
+  <img src="images/dashboard_overview.png" alt="VisionBot Web Dashboard" width="900">
+</p>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 系統環境（System Requirements）
 
-### `npm run build`
+- **OS**：Ubuntu 22.04 LTS
+- **Node.js**：v20.x（建議使用 LTS）
+- **npm**：隨 Node.js 安裝
+<!-- - **Browser**：
+  - Chrome / Firefox / Edge / Safari
+- **IOS**：
+  - Iphone / Ipad
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+>若使用 AWS KVS WebRTC 影像串流
+不支援 Edge / Safari 與 IOS 系統 -->
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 技術架構
 
-### `npm run eject`
+#### Frontend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- React
+- HTML / CSS / JavaScript / Bootstrap
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Communication (通訊方式)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- REST API（Robot Server）
+- WebSocket / MQTT
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Video Streaming (Client Side)
 
-## Learn More
+- RTSP / HLS
+- WebRTC (AWS KVS)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 系統角色與責任
 
-### Code Splitting
+### Web Monitoring UI 負責
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- 顯示機器人即時狀態 (Position / Linear & Angular velocity / Map / IMU)
+- 顯示影像 (HLS / WebRTC)
+- 提供操作介面 :
+  - 導航目標設定
+  - 系統模式切換
+  - 手動控制
+  - Safety Stop
+  - 取消導航
+- 透過 API / MQTT 與後端系統通訊
 
-### Analyzing the Bundle Size
+### Web Monitoring UI 不負責
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- ❌ ROS 系統控制 (由 Robot Server 負責)
+- ❌ ROS Topic 直接存取
+- ❌ SLAM / Navigation 邏輯
+- ❌ 影像串流伺服器 (僅作為播放端)
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 安裝 Node.js
 
-### Advanced Configuration
+```sh
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 執行 Usage
 
-### Deployment
+  1- 建立專案目錄
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+  ```sh
+  mkdir -p ~/web_panel
+  ```
 
-### `npm run build` fails to minify
+  2- Clone 專案
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  ```sh
+  cd ~/web_panel
+  git clone https://github.com/jaminpengstudio-wq/Ros2-Web-Panel.git .
+  ```
+
+  3- 安裝依賴套件
+
+  ```sh
+  npm install
+  ```
+
+  4- 啟動 Web Panel
+
+  ```sh
+  npm run start
+  ```

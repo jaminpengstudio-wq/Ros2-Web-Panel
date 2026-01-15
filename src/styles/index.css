@@ -4,6 +4,7 @@
 @import './rosControlPanel.css';
 @import './map.css';
 @import './rtspStreamerCamera.css';
+@import './awsWebrtcCamera.css';
 @import './robotState.css';
 @import './imuAttitudeIndicator.css';
 @import './powerState.css';
