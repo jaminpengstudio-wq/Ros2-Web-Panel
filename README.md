@@ -19,6 +19,10 @@ Web Monitoring UI 是 VisionBot 系統的 **Web 端監控與操作介面 (Dashbo
   <img src="images/dashboard_overview.png" alt="VisionBot Web Dashboard" width="900">
 </p>
 
+[▶️ 點此觀看 - 模擬環境 NAV | 影像串流 (HLS)](https://drive.google.com/file/d/1jYObw3Iw9ylYyECrmvBdqXsAhGlEGlw7/view?usp=sharing)
+
+[▶️ 點此觀看 - 模擬環境 SLAM | 影像串流 (AWS KVS WebRTC)](https://drive.google.com/file/d/1_jT6ve7Jlr-fGlMAHmL22P7ENhdhg3jO/view?usp=drive_link)
+
 ## 系統環境（System Requirements）
 
 - **OS**：Ubuntu 22.04 LTS
