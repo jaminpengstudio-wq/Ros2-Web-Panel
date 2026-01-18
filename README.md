@@ -14,7 +14,6 @@ Web Monitoring UI 是 VisionBot 系統的 **Web 端監控與操作介面 (Dashbo
 
 ### Main Dashboard
 
-<!-- ![Dashboard Preview](images/dashboard_overview.png) -->
 <p align="center">
   <img src="images/dashboard_overview.png" alt="VisionBot Web Dashboard" width="900">
 </p>
@@ -32,13 +31,6 @@ Web Monitoring UI 是 VisionBot 系統的 **Web 端監控與操作介面 (Dashbo
 - **OS**：Ubuntu 22.04 LTS
 - **Node.js**：v20.x（建議使用 LTS）
 - **npm**：隨 Node.js 安裝
-<!-- - **Browser**：
-  - Chrome / Firefox / Edge / Safari
-- **IOS**：
-  - Iphone / Ipad
-
->若使用 AWS KVS WebRTC 影像串流
-不支援 Edge / Safari 與 IOS 系統 -->
 
 ---
 
