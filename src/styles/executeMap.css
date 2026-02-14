@@ -1,0 +1,98 @@
+.execute-map-container {
+    position: relative;
+    flex: 1 1 0;
+    min-height: 300px;
+    min-width: 600px;
+    background: #1b1f2b;
+}
+
+.execute-map-hint {
+    color: #ff00cc;
+    font-size: 1.1rem;
+    text-shadow: 0 0 4px #ff00cc;
+
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.execute-map-container canvas {
+    position: absolute;
+    flex: 1 1 0;
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+
+.map-toggle {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    /* width: 46px;
+    height: 24px; */
+    width: 36px;
+    height: 18px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    background-color: #666;
+    /* border-radius: 24px; */
+    border-radius: 0.5rem;
+    transition: 0.3s;
+    inset: 0;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+
+    /* width: 18px;
+    height: 18px;
+    left: 3px;
+    bottom: 3px; */
+    width: 14px;
+    height: 14px;
+    left: 2px;
+    bottom: 2px;
+
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+input:checked+.slider {
+    background-color: #08d687;
+}
+
+input:checked+.slider:before {
+    /* transform: translateX(22px); */
+    transform: translateX(18px);
+}
+
+.toggle-label {
+    color: white;
+    font-size: 0.85rem;
+}

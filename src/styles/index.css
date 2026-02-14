@@ -1,6 +1,11 @@
 /* ===== CSS imports ===== */
 @import './login.css';
 @import './header.css';
+@import './toast.css';
+@import './panel.css';
+@import './task.css';
+
+/* pages_panel */
 @import './rosControlPanel.css';
 @import './map.css';
 @import './rtspStreamerCamera.css';
@@ -13,8 +18,27 @@
 @import './teleoperation.css';
 @import './joystick.css';
 @import './loadingScreen.css';
-@import './toast.css';
-@import './panel.css';
+
+/* pages_task */
+@import './waypointPanel.css';
+@import './waypointAdd.css';
+@import './waypointEdit.css';
+@import './schedulePanel.css';
+@import './scheduleAdd.css';
+@import './scheduleWorkspace.css';
+@import './scheduleNavigate.css';
+@import './scheduleWait.css';
+@import './scheduleRotate.css';
+@import './scheduleCaptureImage.css';
+@import './scheduleScanQr.css';
+@import './executeTaskPanel.css';
+@import './executeLaunchTask.css';
+@import './executeDeleteTask.css';
+
+@import './waypointMap.css';
+@import './executeMap.css';
+@import './executeRtspCamera.css';
+@import './missionStatus.css';
 
 
 /* ===== Global base styles ===== */

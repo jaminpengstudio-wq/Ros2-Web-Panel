@@ -1,0 +1,92 @@
+/* 區段標題 */
+.task-section-header {
+    height: calc(100vh - 46px);
+    min-height: 0;
+    gap: 1rem;
+    margin: 0.4rem 0 0 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.task-left-container,
+.task-right-container {
+    margin-top: 1.5rem;
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+}
+
+/* 左邊內部上下切 */
+.task-left-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+/* .task-left-top,
+.task-left-bottom {
+    flex: 1 1 0;
+    min-height: 0;
+    padding: 0.8rem;
+} */
+
+/* 選項區 */
+.task-left-top {
+    display: flex;
+    flex-direction: row;
+    gap: 0.8rem;
+    flex: 1 1 0;
+    padding: 0.75rem 0.5rem;
+}
+
+.task-option {
+    cursor: pointer;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #fff;
+    border-radius: 0.4rem;
+    display: flex;
+    align-items: center;
+}
+
+.task-left-top .task-option.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.task-option:hover {
+    color: #5900ff;
+}
+
+/* 回傳資訊區 */
+.task-left-bottom {
+    overflow-y: auto;
+    flex: 5 1 0;
+}
+
+/* 右邊內部上下比例 1/3 : 2/3 */
+.task-right-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.task-camera {
+    flex: 1 1 0;
+    min-height: 0;
+    padding: 0.6rem;
+    border-bottom: 1px solid #ddd;
+}
+
+.task-map {
+    flex: 2 1 0;
+    min-height: 0;
+    padding: 0.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}

@@ -1,0 +1,42 @@
+/* 主容器讓內容垂直排列 */
+.execute-camera-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* 視訊佔滿（非 idle 時才顯示） */
+.execute-rtsp-video {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    object-fit: contain;
+    background-color: #1b1f2b;
+}
+
+.execute-camera-connect-box {
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* Reload 按鈕 */
+.execute-camera-btn-reload {
+    background: linear-gradient(90deg, #00ff9f, #5900ffff);
+    color: #fff;
+    border: none;
+    border-radius: 0.3rem;
+    padding: 0.1rem 0.3rem;
+    font-size: 0.85rem;
+    font-weight: bold;
+    box-shadow: 0 0 4px #00ff9def;
+    transition: all 0.25s ease-in-out;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.execute-camera-btn-reload:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 5px rgba(233, 232, 232, 0.8);
+}

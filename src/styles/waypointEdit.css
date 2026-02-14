@@ -1,0 +1,142 @@
+.waypoint-edit-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: auto;
+    padding-right: 0.75rem;
+}
+
+.waypoint-edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.5rem;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.waypoint-edit-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #666;
+}
+
+.waypoint-edit-close-btn {
+    background-color: #444;
+    color: white;
+    border-radius: 0.3rem;
+    font-size: 0.85rem;
+    padding: 0.1rem 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.waypoint-edit-close-btn:hover {
+    background: #525252;
+}
+
+
+/* File List */
+.waypoint-file-list {
+    margin-top: 15px;
+    flex: 1;
+}
+
+.file-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.55rem 0;
+}
+
+.file-name {
+    font-size: 0.9rem;
+}
+
+.file-btn-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: white;
+    gap: 0.4rem;
+}
+
+.edit-btn {
+    cursor: pointer;
+    background: #5900ff;
+    border-radius: 0.3rem;
+    padding: 0.12rem 0.8rem;
+}
+
+.edit-btn:hover {
+    background: #590ee4;
+}
+
+.delete-btn {
+    cursor: pointer;
+    background: #ff00cc;
+    border-radius: 0.3rem;
+    padding: 0.12rem 0.8rem;
+}
+
+.delete-btn:hover {
+    background: #ce04a6;
+}
+
+.waypoint-edit-empty {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+/* 第二層覆蓋式面板 */
+.edit-overlay-panel {
+    position: absolute;
+    inset: 0;
+    background: #0f1118;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem;
+    z-index: 50;
+}
+
+/* 上半部 */
+.edit-top {
+    display: flex;
+    gap: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #333;
+}
+
+/* 下半部 */
+.edit-bottom {
+    flex: 1;
+    overflow-y: auto;
+    margin-top: 0.75rem;
+}
+
+.edit-save-btn,
+.edit-waypoint-result-list {
+    margin-right: 0.5rem;
+}
+
+/* 刪除按鈕 */
+.delete-point-btn {
+    /* background: #ff3b3b; */
+    background: #ff00cc;
+    color: white;
+    border-radius: 0.3rem;
+    font-size: 0.8rem;
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+}
+
+.delete-point-btn:hover {
+    /* background: #e12c2c; */
+    background: #ce04a6;
+}

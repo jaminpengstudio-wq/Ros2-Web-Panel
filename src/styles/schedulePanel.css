@@ -1,0 +1,128 @@
+/* ===== 主容器 ===== */
+.schedule-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0.5rem;
+    gap: 0.75rem;
+    box-sizing: border-box;
+}
+
+/* ===== Header ===== */
+.schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9rem;
+}
+
+.schedule-header-item {
+    display: flex;
+
+    gap: 0.3rem;
+}
+
+.schedule-header-item .label {
+    color: #666;
+}
+
+.schedule-header-item .value {
+    font-weight: 600;
+}
+
+/* ===== List 區塊 ===== */
+.schedule-list-wrapper {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-right: 0.6rem;
+}
+
+.schedule-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.9rem;
+}
+
+.schedule-file-name {
+    font-weight: 500;
+}
+
+/* ===== 按鈕區 ===== */
+.schedule-actions {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.btn {
+    padding: 0.07rem 0.65rem;
+    font-size: 0.9rem;
+    border-radius: 0.2rem;
+    color: #fff;
+    /* text-shadow: 0 0 8px #fff; */
+    cursor: pointer;
+    border: none;
+}
+
+.btn.add {
+    border: 1px solid #08d687;
+    background-color: #08d687;
+}
+
+.btn.add:hover {
+    background-color: transparent;
+    text-shadow: none;
+}
+
+.btn.edit {
+    border: 1px solid #691ef4;
+    background-color: #691ef4;
+}
+
+.btn.edit:hover {
+    background-color: transparent;
+    text-shadow: none;
+}
+
+/* ===== 空狀態 ===== */
+.schedule-empty {
+    padding: 1rem;
+    text-align: center;
+    color: #ff00cc;
+    text-shadow: 0 0 6px #ff00cc;
+}
+
+/*==============  ScheduleOverlay 裡的面板  ==============*/
+.schedule-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    background: linear-gradient(145deg, #181b27, #0e1016);
+
+    display: block;
+}
+
+.schedule-overlay-panel {
+    border: 1px solid #444;
+    border-radius: 0.5rem;
+
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: transparent;
+    padding: 0.9rem;
+    box-sizing: border-box;
+}

@@ -1,0 +1,28 @@
+.mission-sequence-wrapper {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    background: #0b0c12;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.7rem;
+}
+
+.feedback-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.mission-sequence-item {
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    margin-bottom: 0.3rem;
+    background: #1b1e2b;
+    transition: all 0.3s ease;
+}
+
+.mission-sequence-item.active {
+    background: #08d68733;
+    border: 1px solid #08d687;
+    transform: scale(1.02);
+}

@@ -1,0 +1,250 @@
+.waypoint-add {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 0.75rem;
+    position: relative;
+}
+
+/* ===== 上半部 ===== */
+.waypoint-add-top {
+    display: flex;
+    gap: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #333;
+}
+
+.pose-preview {
+    flex: 1;
+    background: #0d0f18;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.coordinate-title {
+    font-size: 1.0rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.yaw-title {
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.pose-input {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.pose-input-box {
+    border-radius: 0.3rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.3rem;
+    border: 1px solid #555;
+    background: #ffffff;
+    color: #2a2a2a;
+    outline: none;
+}
+
+.btn-row {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.add-point-btn {
+    background: #5900ff;
+    color: white;
+    border-radius: 0.3rem;
+    font-size: 0.85rem;
+    padding: 0.1rem 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.add-point-btn:hover {
+    background: #5309de;
+}
+
+.cancel-point-btn {
+    background: #444;
+    color: white;
+    border-radius: 0.3rem;
+    font-size: 0.85rem;
+    padding: 0.1rem 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.cancel-point-btn:hover {
+    background: #525252;
+}
+
+/* ===== 下半部 ===== */
+.waypoint-add-bottom {
+    flex: 1;
+    overflow-y: auto;
+    background: #0b0c12;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.result-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.save-btn {
+    background: #5900ff;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.save-btn:hover {
+    background: #5309de;
+}
+
+.waypoint-result-list {
+    list-style: none;
+    padding: 0;
+    /* margin: 0.5rem 0 0 0; */
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.waypoint-item {
+    background: #141622;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.wp-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.wp-values {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #ccc;
+}
+
+.hint {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #777;
+    text-align: center;
+}
+
+
+/* 覆蓋式儲存視窗 */
+.save-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(3px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 100;
+    border-radius: 0.3rem;
+}
+
+.save-modal {
+    background: #161822;
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    width: 300px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.save-modal h3 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.save-modal input {
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.3rem;
+    border: 1px solid #555;
+    background: #2a2a2a;
+    color: #fff;
+    outline: none;
+}
+
+.modal-btn-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.modal-btn-row-save {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+    border: none;
+    color: white;
+    background-color: #5a03fb;
+    cursor: pointer;
+}
+
+.modal-btn-row-save:hover {
+    background-color: #5a03fbd3;
+}
+
+.modal-btn-row-cancel {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem;
+    border-radius: 0.3rem;
+    border: none;
+    color: white;
+    background: #444;
+    cursor: pointer;
+}
+
+.modal-btn-row-cancel:hover {
+    background: #666;
+}

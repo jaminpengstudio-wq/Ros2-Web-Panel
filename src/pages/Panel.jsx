@@ -6,16 +6,16 @@ import mqttService from "../scripts/MqttService";
 import LoadingScreen from "../components/LoadingScreen";
 import ToastContainer from "../components/ToastContainer";
 
-import RosControlPanel from "../panel_pages/RosControlPanel";
-import Map from "../panel_pages/Map";
-import RobotState from "../panel_pages/RobotState";
-import Teleoperation from "../panel_pages/Teleoperation";
-import PowerStatus from "../panel_pages/PowerStatus";
-import SafetyStop from "../panel_pages/SafetyStop";
-import Emergency from "../panel_pages/Emergency";
+import RosControlPanel from "../pages_panel/RosControlPanel";
+import Map from "../pages_panel/Map";
+import RobotState from "../pages_panel/RobotState";
+import Teleoperation from "../pages_panel/Teleoperation";
+import PowerStatus from "../pages_panel/PowerStatus";
+import SafetyStop from "../pages_panel/SafetyStop";
+import Emergency from "../pages_panel/Emergency";
 
-// import AwsWebrtcCamera from "../panel_pages/AwsWebrtcCamera";
-import RtspStreamerCamera from "../panel_pages/RtspStreamerCamera";
+// import AwsWebrtcCamera from "../pages_panel/AwsWebrtcCamera";
+import RtspStreamerCamera from "../pages_panel/RtspStreamerCamera";
 
 class Panel extends Component {
     constructor(props) {

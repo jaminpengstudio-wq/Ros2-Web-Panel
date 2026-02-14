@@ -1,0 +1,96 @@
+.execute-launch-task {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.execute-launch-header {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    /* gap: 5rem; */
+}
+
+.execute-launch-box {
+    display: flex;
+    gap: 0.6rem;
+}
+
+.execute-btn {
+    border-radius: 0.3rem;
+    font-size: 0.85rem;
+    padding: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.disabled-btn {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.launch-btn {
+    background-color: #08d687;
+    color: white;
+}
+
+.launch-btn:hover {
+    background: #08d687e4;
+}
+
+.stop-btn {
+    background-color: #5900ff;
+    color: white;
+}
+
+.stop-btn:hover {
+    background: #5900ffd8;
+}
+
+.cancel-btn {
+    background-color: #ff00cc;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background: #ff00ccdd;
+}
+
+.close-btn {
+    background-color: #444;
+    color: white;
+}
+
+.close-btn:hover {
+    background: #525252;
+}
+
+/* 覆蓋層 */
+.execute-confirm-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+/* 中央面板 */
+.execute-confirm-panel {
+    background: #161822;
+    padding: 1.5rem;
+    border-radius: 0.8rem;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
