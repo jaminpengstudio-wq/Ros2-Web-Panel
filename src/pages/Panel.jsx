@@ -211,10 +211,10 @@ class Panel extends Component {
                         <div className="main-border camera-card">
 
                             {/* 使用 AWS KVS WebRTC */}
-                            {/* <AwsWebrtcCamera /> */}
+                            <AwsWebrtcCamera />
 
                             {/* 使用 RTSP 格式轉換  */}
-                            <RtspStreamerCamera currentMode={this.state.currentMode} />
+                            {/* <RtspStreamerCamera currentMode={this.state.currentMode} /> */}
 
                             <div className="second-border control-box desktop-only">
                                 <div>
