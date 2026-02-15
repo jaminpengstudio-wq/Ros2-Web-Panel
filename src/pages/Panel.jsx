@@ -14,8 +14,8 @@ import PowerStatus from "../pages_panel/PowerStatus";
 import SafetyStop from "../pages_panel/SafetyStop";
 import Emergency from "../pages_panel/Emergency";
 
-// import AwsWebrtcCamera from "../pages_panel/AwsWebrtcCamera";
-import RtspStreamerCamera from "../pages_panel/RtspStreamerCamera";
+import AwsWebrtcCamera from "../pages_panel/AwsWebrtcCamera";
+// import RtspStreamerCamera from "../pages_panel/RtspStreamerCamera";
 
 class Panel extends Component {
     constructor(props) {
