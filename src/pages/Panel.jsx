@@ -14,8 +14,8 @@ import PowerStatus from "../pages_panel/PowerStatus";
 import SafetyStop from "../pages_panel/SafetyStop";
 import Emergency from "../pages_panel/Emergency";
 
-import AwsWebrtcCamera from "../pages_panel/AwsWebrtcCamera";
-// import RtspStreamerCamera from "../pages_panel/RtspStreamerCamera";
+// import AwsWebrtcCamera from "../pages_panel/AwsWebrtcCamera";
+import RtspStreamerCamera from "../pages_panel/RtspStreamerCamera";
 
 class Panel extends Component {
     constructor(props) {
@@ -211,10 +211,10 @@ class Panel extends Component {
                         <div className="main-border camera-card">
 
                             {/* 使用 AWS KVS WebRTC */}
-                            <AwsWebrtcCamera />
+                            {/* <AwsWebrtcCamera /> */}
 
                             {/* 使用 RTSP 格式轉換  */}
-                            {/* <RtspStreamerCamera currentMode={this.state.currentMode} /> */}
+                            <RtspStreamerCamera currentMode={this.state.currentMode} />
 
                             <div className="second-border control-box desktop-only">
                                 <div>

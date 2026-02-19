@@ -44,7 +44,7 @@ class Header extends Component {
                 {isOpen && (
                     <nav className="sidebar-links">
                         <Link to="/panel" className="nav-item" onClick={this.closeSidebar}>Panel</Link>
-                        {/* <Link to="/task" className="nav-item" onClick={this.closeSidebar}>Task</Link> */}
+                        <Link to="/task" className="nav-item" onClick={this.closeSidebar}>Task</Link>
                     </nav>
                 )}
             </div>
